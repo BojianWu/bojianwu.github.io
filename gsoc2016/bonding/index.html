@@ -21,9 +21,25 @@
 		<section>
 			<h2><a id="bonding" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bonding Period</h2>
 
-			<h3>Warming up on IRC</h3>			
+			<h3>Warming up on IRC</h3>
+			<p><a href="https://en.wikipedia.org/wiki/Internet_Relay_Chat">IRC</a>, short for <i>Internet Relay Chat</i>, is mainly designed for group communication in discussion forums(called channels), usually, it is very popular in open source software development circle because it collects developers from all around the world, they can communicate with each other freely, exchange ideas and make progress together.</p>
+			
+			<p><a href="http://brlcad.org/wiki/IRC">BRL-CAD</a> community operates in the #brlcad channel on the Freenode IRC network (irc.freenode.net:6667). The logs can be found <a href="http://infobot.rikers.org/%23brlcad/">here</a>.</p>
+			
+			<p>My nickname there is registerd as <b>boj</b>. It is really convenient for us to communicate, usually I will paste my unsolved problems there, everyone is warm-hearted, they are glad to help others. Here is the <a href="http://infobot.rikers.org/%23brlcad/20160425.html.gz">log</a> last time I had problems when compiling the source code, thanks <a href="http://brlcad.org/wiki/User:Sean">@sean</a> sincerely, he patiently guided me step by step and helped to solve the problem.</p>
+			
 			<h3>Compilation</h3>
+			<p>I use Microsoft Visual Studio 2012 on Windows 7 as my development environment. </p>
+			
 			<h3>Basic concepts in BRL-CAD</h3>
+			<p><b><a href="http://brlcad.org/wiki/MGED">MGED</a></b> <u>Multiple-Device Geometry Editor</u> is currently the primary geometry editor in BRL-CAD. By default, MGED will provide a graphical user interface for modeling, editing, render, and managing geometry models.</p>
+			
+			<p><b>RPP</b> <u>Rectangular Parallelepiped</u> bounding volumes with faces parallel to the xy, yz and xz planes can be created simple by taking the mimima and maxima of the models' vertex coordinates; they are the intersection of half-spaces defined by six planes perpendicular to the coordinate axes and are thus called axis-aligned bounding boxes (AABBs). AABBs generally suffer from large amounts of void space. Oriented bounding boxes (OBBs) are arbitrarily oriented rectangular parallelepipeds; with a careful selection of orientation, OBBs result in less void space than AABBs.</p>
+			
+			<p><b>BVH</b> <u>Bounding Volumes Hierarchy</u> provide a better compromise between simplicity and void space. These include hierarchies of OBBs. The root of the tree represents a bounding volume that enclose the entire model; this contains smaller volumes enclosing parts of the model more tightly, up to individual primitives. During intersection queries, the tree structure helps to quickly restrict the area of potential intersection.</p>
+			
+			<p><img src="bonding_1.png"></img></p>
+			
 			<h3>Plate mode in BoT</h3>			
 		</section>
 	</div>

@@ -20,23 +20,19 @@
 		
 		<section>
 			<h2><a id="brlcad" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why BRL-CAD</h2>
-			<p style="text-align:justify"><a href="http://www.brlcad.org">BRL-CAD</a> is a world leading and powerful open source cross-platform solid modeling system which includes interactive geomery editing tools, and lots of other high-performance techniques like ray tracing and so on. </p>
+			<p><a href="http://www.brlcad.org">BRL-CAD</a> is a world leading and powerful open source cross-platform solid modeling system which includes interactive geomery editing tools, and lots of other high-performance techniques like ray tracing and so on. </p>
 			
-			<!--
-			<p>It also supports lots of different universe 3D geometry formats (for examples, *.obj, *.stl, ...) and provides effective tools to transform between these external formats and its self-supported formats.</p>
-			-->
-			
-			<p style="text-align:justify">It is my great pleasure to be selected as a Google Summer of Code(GSOC 2016) participant supported by BRL-CAD. I am so enthusiastic about computer graphics, it is so amazing and attractive. What makes me so excited is that I can really make contributions to the world leading open source software, and share ideas with all other developers, learn and make progress together.</p>
+			<p>It is my great pleasure to be selected as a Google Summer of Code(GSOC 2016) participant supported by BRL-CAD. I am so enthusiastic about computer graphics, it is so amazing and attractive. What makes me so excited is that I can really make contributions to the world leading open source software, and share ideas with all other developers, learn and make progress together.</p>
 
 			<p>My project this year is shortly illustrated as follows.</p>
 			
 			<h2><a id="gsoc2016" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plate Mode NURBS Raytracing [<a href="http://brlcad.org/wiki/Plate_Mode_NURBS_raytracing">link</a>]</h2>
 			
-			<p style="text-align:justify">In Constructive Solid Geometry(CSG) system, the modeling process is usually represented as boolean operations of some predefined basic primitives like cubes, spheres, etc.</p>
+			<p>In Constructive Solid Geometry(CSG) system, the modeling process is usually represented as boolean operations of some predefined basic primitives like cubes, spheres, etc.</p>
 			
-			<p style="text-align:justify">Besides, the boundary representation(B-rep) is also a method for representing models by a collection of connected surface elements. So for the purpose of solid modeling, it is commonly impractical to represent these thin solids exactly as bound volume, thus an available approach is proposed to assign an implicit thickness to each face. Simply speaking, when shooting a ray towards the B-rep model, it can generate both 'in' and 'out' hit point while the 'out' hit point is a small offset from the 'in' one with given thickness value along the ray direction.</p>
+			<p>Besides, the boundary representation(B-rep) is also a method for representing models by a collection of connected surface elements. So for the purpose of solid modeling, it is commonly impractical to represent these thin solids exactly as bound volume, thus an available approach is proposed to assign an implicit thickness to each face. Simply speaking, when shooting a ray towards the B-rep model, it can generate both 'in' and 'out' hit point while the 'out' hit point is a small offset from the 'in' one with given thickness value along the ray direction.</p>
 			
-			<p style="text-align:justify">Currently, BRL-CAD implements this modeling technique for <a href="http://brlcad.org/wiki/Bot">BoT</a> primitive, and BoTs that utilize it are referred to as '<b>plate mode</b>'. My primary task is to extend this technique to B-rep model and implement a robust ray-tracing routine for it.<p>
+			<p>Currently, BRL-CAD implements this modeling technique for <a href="http://brlcad.org/wiki/Bot">BoT</a> primitive, and BoTs that utilize it are referred to as '<b>plate mode</b>'. My primary task is to extend this technique to B-rep model and implement a robust ray-tracing routine for it.<p>
 		</section>
 	</div>
 </body>
