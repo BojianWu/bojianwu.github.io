@@ -32,16 +32,19 @@
 			
 			<p><a href="http://brlcad.org/wiki/IRC">BRL-CAD</a> community operates in the #brlcad channel on the Freenode IRC network (irc.freenode.net:6667). The logs can be found <a href="http://infobot.rikers.org/%23brlcad/">here</a>.</p>
 			
-			<p>My nickname there is registerd as <b>boj</b>. It is really convenient for us to communicate, usually I will paste my unsolved problems there, everyone is warm-hearted, they are glad to help others. Here is the <a href="http://infobot.rikers.org/%23brlcad/20160425.html.gz">log</a> last time I had problems when compiling the source code, thanks <a href="http://brlcad.org/wiki/User:Sean">@brlcad</a> sincerely, he patiently guided me step by step and helped to solve the problem.</p>
+			<p>My nickname there is registerd as <b>boj</b>. It is really convenient for us to communicate, usually I will paste my unsolved problems there, everyone is warm-hearted, they are glad to help others. Here is the <a href="http://infobot.rikers.org/%23brlcad/20160425.html.gz">log</a> last time I had problems when compiling the source code, thank <a href="http://brlcad.org/wiki/User:Sean">@brlcad</a> sincerely, he patiently guided me step by step and helped to solve the problem.</p>
 			
 			<h3>Compilation</h3>
-			<p>Usually, I use Microsoft Visual Studio 2012 on Windows 7 as my development environment. After downloading the source code, we need to run CMake to generate VS project that we can use to compile BRL-CAD. Notice that, on Windows, we should choose ALL_BUILD item as the StartUp Project and compile it in order to avoid some strange and annoying warnings and errors. Several minutes later, the code will be compiled successfully.(Please refer to this <a href="http://infobot.rikers.org/%23brlcad/20160425.html.gz">log</a>, thanks <a href="http://brlcad.org/wiki/User:Sean">@brlcad</a> and <a href="">@starseeker</a> for reminding me that.)</p>
+			<p>Usually, I use Microsoft Visual Studio 2012 on Windows 7 as my development environment. After downloading the source code, we need to run CMake to generate VS project that we can use to compile BRL-CAD. Notice that, on Windows, we should choose ALL_BUILD item as the StartUp Project and compile it in order to avoid some strange and annoying warnings and errors. Several minutes later, the code will be compiled successfully.(Please refer to this <a href="http://infobot.rikers.org/%23brlcad/20160425.html.gz">log</a>, thank <a href="http://brlcad.org/wiki/User:Sean">@brlcad</a> and <a href="">@starseeker</a> for reminding me that.)</p>
+			
+			<h3>Reading the manual</h3>
+			<p>Always, it is suggested to start with the official <a href="http://brlcad.org/wiki/Documentation">manual</a>. When reading these documents, I gradually learn how to use basic tools like MGED, NIRT and so on and get to know some terminologies used in BRL-CAD. I think it should be the first step to go for further understanding the code.</p>
 			
 			<h3>Basic concepts in BRL-CAD</h3>
 			<p><b><a href="http://brlcad.org/wiki/BoT">BoT</a></b> <u>Bag of Triangles</u> is a BRL-CAD primitive object used for representing triangle mesh objects.</p>
 			<p><b><a href="http://brlcad.org/wiki/MGED">MGED</a></b> <u>Multiple-Device Geometry Editor</u> is currently the primary geometry editor in BRL-CAD. By default, MGED will provide a graphical user interface for modeling, editing, render, and managing geometry models.</p>
 			
-			<!-- comment
+			<!--
 			<p><b>RPP</b> <u>Rectangular Parallelepiped</u> bounding volumes with faces parallel to the xy, yz and xz planes can be created simple by taking the mimima and maxima of the models' vertex coordinates; they are the intersection of half-spaces defined by six planes perpendicular to the coordinate axes and are thus called axis-aligned bounding boxes (AABBs). AABBs generally suffer from large amounts of void space. Oriented bounding boxes (OBBs) are arbitrarily oriented rectangular parallelepipeds; with a careful selection of orientation, OBBs result in less void space than AABBs.</p>
 			
 			<p><b>BVH</b> <u>Bounding Volumes Hierarchy</u> provide a better compromise between simplicity and void space. These include hierarchies of OBBs. The root of the tree represents a bounding volume that enclose the entire model; this contains smaller volumes enclosing parts of the model more tightly, up to individual primitives. During intersection queries, the tree structure helps to quickly restrict the area of potential intersection.</p>
@@ -49,15 +52,17 @@
 			<p><img src="bonding_1.png"></img></p>
 			-->
 			
-			<h3>Generate BoT model from *.obj</h3>
+			<h3>Generating BoT model from *.obj</h3>
 			<p><b>[BUGS: CRT memory leak in debug mode]</b> Recently, I try to use 'obj-g.exe' (on Windows 7) to generate BoT models from *.obj file, but in debug mode (actually, it works well in release mode), I detect the memory leak, with <a href="">@starseeker</a>'s help, I find where it occurs, then give a rough solution and submit a <a href="https://sourceforge.net/p/brlcad/patches/443/">patch</a>. I have tested the modified code with a simple *.obj file[<a href="cube.obj">download</a>], it works for me. (If my solution is not reasonable or problematic, please let me know, it would be much appreciated.) By the way, <a href="http://paste.ubuntu.com/16280438">here</a> is my error information when running the program and <a href="">@starseeker</a> gives me some memory leak detection <a href="http://paste.ubuntu.com/16280918">information</a>.</p>
 			
 			<p>The command line I run is like this: <b><i>obj-g.exe -o p -H 2 plane.obj plane-t.g</i></b>
 			<p>With different arguments provided to the command, the resulting BoT models differ. For example, with <b><i>'-o p -H 2'</i></b> shown above, it means that we can generate a BoT model in plate mode with thickness value equaling to 2mm. But if without any arguments, the command will run under its default settings.
 			<p>For more information about using this tool, just type <b><i>obj-g.exe</b></i> in the command line window, and you will get what you need.</p>
 			
+			<p><b>[IMPORTANT NOTES]</b> As mentioned above, the parameter <b><i>'-H'</b></i> is used for assigning thickness value to BoT, please be aware that, this value is only valid for <u>open</u> BoT. I quickly go through the source code of <b><i>obj-g</i></b>, there is a closure test before outputting to BoT, it means that if the input mesh is already closed, the default output type should be *RT_BOT_SOLID*.(Thank <a href="">@d_rossberg</a> for making me be aware of this issue.) <br />[Please refer to this function in <i>obj-g.c</i> for more details: <i>void process_b_mode_option(...)</i>]</p>
+			
 			<h3>Plate mode ray tracing of BoT</h3>
-			<p>At this stage, I use <b><i>obj-g.exe</i></b> just mentioned above to generate several examples here and use <b><i>rtshot.exe</b></i> to do simple ray tracing. The output and visualized results are shown below. [Please click image to zoom in]</p>
+			<p>At this stage, I use <b><i>obj-g.exe</i></b> just mentioned above to generate several examples here and use <b><i>rtshot.exe</b></i> to do simple ray tracing. The output and visualized results are shown below. It is a more intuitive understanding of plate mode BoT.[Please click image to zoom in]</p>
 			
 			<table border="1">
 				<tr>
@@ -93,13 +98,40 @@
 					<td><a href="double-plane-t-rtshot.png"><img src="double-plane-t-rtshot.png" height="120" style="cursor:pointer;"/></a></td>
 					<td>-</td>
 				</tr>
+				<!--
 				<tr>
 					<td><img src="cube.png" width="120"/></td>
 					<td>cube without thickness</td>
 					<td><a href="cube-rtshot.png"><img src="cube-rtshot.png" height="120" style="cursor:pointer;"/></a></td>
 					<td>-</td>
 				</tr>
+				-->
 			</table>
+			
+			<h3>Pipeline and procedure of <i>rtshot</i></h3>
+			<p>
+				<ul>
+					<li>Open database and retrieve geometry
+						<ul>
+							<li>Open database(with mapped file checking) and initialize database internal data structure(<i>db_i</i>) instance</li>
+							<li>Import raw data and look up global attribute values table</li>
+							<li>Initialize ray tracing internal data structure(<i>rt_i</i>) instance</li>
+						</ul>
+					</li>
+					<li>Database walking tree(A little bit confusing)
+						<ul>
+							<li>Build regions table</li>
+						</ul>
+					</li>
+					<li>Prepare geometry for raytracing
+						<ul>
+							<li>Boolean tree optimization(like rewriting X - A - B as X - (A + B))</li>
+							<li>Build space partitioning tree</li>
+						</ul>
+					</li>
+					<li>Perform ray tracing</li>
+				</ul>
+			</p>
 			
 			<h3>Plate mode ray tracing of B-rep</h3>
 			<p>I use <b><i>brep-cobb.exe</i></b> to generate a brep model without implicit thickness value.</p>
