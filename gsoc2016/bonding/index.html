@@ -63,6 +63,8 @@
 			
 			<p><b>[IMPORTANT NOTES]</b> As mentioned above, the parameter <b><i>'-H'</b></i> is used for assigning thickness value to BoT, please be aware that, this value is only valid for <u>open</u> BoT. I quickly go through the source code of <b><i>obj-g</i></b>, there is a closure test before outputting to BoT, it means that if the input mesh is already closed, the default output type should be *RT_BOT_SOLID*.(Thank <a href="">@d_rossberg</a> for making me be aware of this issue.) <br />[Please refer to this function in <i>obj-g.c</i> for more details: <i>void process_b_mode_option(...)</i>]</p>
 			
+			<p><font color='red'>Then, how to generate a plate mode cube? Aha... <a href="">@d_rossberg</a> gives me some <a href="http://infobot.rikers.org/%23brlcad/20160517.html.gz">clues</a>, that is we can build it manually. Based on his guidance, I write this <a href="cube-t.asc">file</a>, and then use <b><i>g2asc.exe</i></b> to transform the plain txt to *.g file that is used in MGED. It works for me. :)</font></p>
+			
 			<h3>Plate mode ray tracing of BoT</h3>
 			<p>At this stage, I use <b><i>obj-g.exe</i></b> just mentioned above to generate several examples here and use <b><i>rtshot.exe</b></i> to do simple ray tracing. The output and visualized results are shown below. It is a more intuitive understanding of plate mode BoT.[Please click image to zoom in]</p>
 			
@@ -100,14 +102,18 @@
 					<td><a href="double-plane-t-rtshot.png"><img src="double-plane-t-rtshot.png" height="120" style="cursor:pointer;"/></a></td>
 					<td>-</td>
 				</tr>
-				<!--
 				<tr>
 					<td><img src="cube.png" width="120"/></td>
 					<td>cube without thickness</td>
 					<td><a href="cube-rtshot.png"><img src="cube-rtshot.png" height="120" style="cursor:pointer;"/></a></td>
 					<td>-</td>
 				</tr>
-				-->
+				<tr>
+					<td><img src="cube-t.png" width="120"/></td>
+					<td>cube with thickness<br />(2mm)<br /><i>(generated manually)</i></td>
+					<td><a href="cube-t-rtshot.png"><img src="cube-t-rtshot.png" height="120" style="cursor:pointer;"/></a></td>
+					<td>-</td>
+				</tr>
 			</table>
 			
 			<h3>Pipeline and procedure of <i>rtshot</i></h3>
