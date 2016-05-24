@@ -11,6 +11,7 @@
 	
 	<style>
 		td,th {text-align:center}
+		li {text-align:justify}
 	</style>
 </head>
 
@@ -30,8 +31,23 @@
 
 			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
 			
-			<h3>TBD</h3>
+			<font color='red'>
+			<h3>Functions calling procedures in <i>rt_shootray(...)</i></h3>
+			<ul>
+				<li><b>Step 1: </b>initialization, resource allocation and data preparation</li>
+				<li><b>Step 2: </b>calling <i>rt_in_rpp(...)</i> to check whether the ray will intersect the bounding box of model, if it does, preparing for ray-tracing and going to next step, or it will report a miss.</li>
+				<li><b>Step 3: </b>determining where the real intersection starts, if back tracing flag is enabled, then calling <i>rt_find_backing_dist(...)</i> to compute the backing distance.</li>
+				<li><b>Step 4: </b>iterating step 5 to step 7 listed below until the ray emerges from the model space again.</li>
+				<li><b>Step 5: </b>calling <i>rt_advance_to_next_cell(...)</i> to move the ray forward along ray direction, during this procedure, traversing the space partitioning tree(like NUBSPT, short for non-uniform binary space partitioning tree) to find next cell(like <b>CUT_BOXNODE</b> defined in NUBSPT) for ray intersection test.</li>
+				<li><b>Step 6: </b>considering all pieces and solids in the cell found in last step to compute intersection segments. For pieces of BoT primitives, it will call <i>rt_bot_piece_shot(...)</i> to record all hits and <i>rt_bot_piece_hitsegs(...)</i> to make segments. Besides, for solids, it will call <i>rt_bot_shot(...)</i> to get the hits and make segments.(Actually, all these functions are called through the function pointers defined in <i>stp->st_meth->ft_***()</i>)<br /><b>[Attentions]</b> In <i>rt_bot_shot(...)</i> (about line 583 in <i>bot.c</i>), at last, it calls <i>rt_bot_shot_float(...)</i> or <i>rt_bot_shot_double(...)</i>, actually, these functions are defined by macro in <i>g_bot_include.c</i>.</li>
+				<li><b>Step 7: </b>calling <i>rt_boolweave(...)</i> to weave segments generated in last step into partition list.(Actually, I am a little bit confused about what it really do, since this is not the part that I need to focus on, just put it here until I get around to understand it later.)</li>
+				<li><b>Step 8: </b>defining your <i>a_hit</i> and <i>a_miss</i> function to do some post-processing stuffs regarding to all the hit points, like computing curvature or outputing related information and so on.</li>
+				<li><b>Step 9: </b>returning the result, it's done.</li>
+			</ul>
+			
+			<h3>Data structure of <i>rt_bot_internal</i> (about line 758 in <i>geom.h</i>)</h3>
 			<p>TBD</p>
+			</font>
 			
 		</section>
 	</div>
