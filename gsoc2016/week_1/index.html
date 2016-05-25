@@ -31,7 +31,6 @@
 
 			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
 			
-			<font color='red'>
 			<h3>Functions calling procedures in <i>rt_shootray(...)</i></h3>
 			<ul>
 				<li><b>Step 1: </b>initialization, resource allocation and data preparation</li>
@@ -45,8 +44,21 @@
 				<li><b>Step 9: </b>returning the result, it's done.</li>
 			</ul>
 			
+			<font color='red'>
 			<h3>Data structure of <i>rt_bot_internal</i> (about line 758 in <i>geom.h</i>)</h3>
+			<p>There are two internal data structures designed for BoT listed as follows.
+			<ul>
+				<li><b>rt_bot_internal</b>(about line 758 in geom.h): it contains some basic data used in BoT, like vertices, faces and normals and so on. Besides, in order to define plate mode BoT, to this end, it defines thickness value array, face mode flag to characterize this property.</li>
+				<li><b>bot_specific</b>(about line 57 in bot.h): it stores almost the same information mentioned in <i>rt_bot_internal</i>.</li>
+			</ul>
+			</p>
+			
+			<h3>How to use <i>*thickness*</i> value in BoT when ray-tracing</h3>
+			<p>Actually, the most related utilization of this property is in <i>static int XGLUE(rt_bot_plate_segs_, TRI_TYPE)(...)</i>(about line 382 in g_bot_include.c), this function is used to make segments for each hit, cause we have two types of 'plate mode': <i>RT_BOT_PLATE</i> and <i>RT_BOT_PLATE_NOCOS</i>, so firstly, we compute LOS(Line Of Sight) instead of using thickness value directly. If the mode is <i>RT_BOT_PLATE_NOCOS</i>, it means that the advancing distance of the ray does not consider the oblique angle between ray direction and the normal of hit point. While in <i>RT_BOT_PLATE_NOCOS</i> mode, it will.</p>
+			
+			<h3>Designing data structure for B-rep primitives</h3>
 			<p>TBD</p>
+			
 			</font>
 			
 		</section>
