@@ -27,8 +27,6 @@
 		
 		<section>
 			<h2><a id="bonding" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bonding Period</h2>
-
-			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
 			
 			<h3>Warming up on IRC</h3>
 			<p><a href="https://en.wikipedia.org/wiki/Internet_Relay_Chat">IRC</a>, short for <i>Internet Relay Chat</i>, is mainly designed for group communication in discussion forums(called channels), usually, it is very popular in open source software development circle because it collects developers from all around the world, so we can communicate with each other freely, exchange ideas and make progress together.</p>
@@ -64,9 +62,9 @@
 			
 			<p><b>[IMPORTANT NOTES]</b> As mentioned above, the parameter <b><i>'-H'</b></i> is used for assigning thickness value to BoT, please be aware that, this value is only valid for <u>open</u> BoT. I quickly go through the source code of <b><i>obj-g</i></b>, there is a closure test before outputting to BoT, it means that if the input mesh is already closed, the default output type should be *RT_BOT_SOLID*.(Thank <a href="">@d_rossberg</a> for making me be aware of this issue.) <br />[Please refer to this function in <i>obj-g.c</i> for more details: <i>void process_b_mode_option(...)</i>]</p>
 			
-			<p><font color='red'>Then, how to generate a plate mode cube? Aha... <a href="">@d_rossberg</a> gives me some <a href="http://infobot.rikers.org/%23brlcad/20160517.html.gz">clues</a>, that is we can build it manually. Based on his guidance, I write this <a href="cube-t.asc">file</a>, and then use <b><i>g2asc.exe</i></b> to transform the plain txt to *.g file that is used in MGED. It works for me. :)</font></p>
+			<p>Then, how to generate a plate mode cube? Aha... <a href="">@d_rossberg</a> gives me some <a href="http://infobot.rikers.org/%23brlcad/20160517.html.gz">clues</a>, that is we can build it manually. Based on his guidance, I write this <a href="cube-t.asc">file</a>, and then use <b><i>g2asc.exe</i></b> to transform the plain txt to *.g file that is used in MGED. It works for me. :)</p>
 			
-			<p><font color='red'>By the way, <a href='http://brlcad.org/wiki/User:Sean'>@brlcad</a> also throws an approach to generate plate mode cube, it contains a series of commands in MGED and actually it is a very useful interactive method. Basically, we can use <i>adjust</i> command in MGED to change the mode of a BoT, for more details, please refer to this <a href="http://infobot.rikers.org/%23brlcad/20160517.html.gz">log</a>.</font></p>
+			<p>By the way, <a href='http://brlcad.org/wiki/User:Sean'>@brlcad</a> also throws an approach to generate plate mode cube, it contains a series of commands in MGED and actually it is a very useful interactive method. Basically, we can use <i>adjust</i> command in MGED to change the mode of a BoT, for more details, please refer to this <a href="http://infobot.rikers.org/%23brlcad/20160517.html.gz">log</a>.</p>
 			
 			<h3>Ray tracing of plate mode BoT</h3>
 			<p>At this stage, I use <b><i>obj-g.exe</i></b> just mentioned above to generate several examples here and use <b><i>rtshot.exe</b></i> to do simple ray tracing. The output and visualized results are shown below. It is a more intuitive understanding of plate mode BoT.[Please click image to zoom in]</p>
@@ -119,8 +117,8 @@
 				</tr>
 			</table>
 			
-			<h3><font color='red'>Visualization of 'plate mode' for BoT primitives</font></h3>
-			<p><font color='red'>In <i>bot.c</i>, <i>void rt_bot_plot(...)</i>(about line 913) is called when plotting BoT primitives in MGED, so basically if we change something here, it should change the rendering result accordingly. Here is my <a href="http://paste.ubuntu.com/16517511/">code</a></font>.</p>
+			<h3>Visualization of 'plate mode' for BoT primitives</h3>
+			<p>In <i>bot.c</i>, <i>void rt_bot_plot(...)</i>(about line 913) is called when plotting BoT primitives in MGED, so basically if we change something here, it should change the rendering result accordingly. Here is my <a href="http://paste.ubuntu.com/16517511/">code</a>.</p>
 			
 			<h3>Pipeline of <i>rtshot</i></h3>
 			<p>
