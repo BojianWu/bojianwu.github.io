@@ -24,13 +24,12 @@
 			<p><a href='../daily/index.html'>Daily and Weekly Update</p>
 			<p><a href='../bonding/index.html'>Bonding Period</p>
 			<p><a href='index.html'>Week 1</p>
+			<p><a href='../week_2/index.html'>Week 2</p>
 		</header>
 		
 		<section>
 			<h2><a id="week_1" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 1</h2>
 
-			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
-			
 			<h3>Functions calling procedures in <i>rt_shootray(...)</i></h3>
 			<ul>
 				<li><b>Step 1: </b>initialization, resource allocation and data preparation</li>
@@ -44,7 +43,6 @@
 				<li><b>Step 9: </b>returning the result, it's done.</li>
 			</ul>
 			
-			<font color='red'>
 			<h3>Data structure of <i>rt_bot_internal</i> (about line 758 in <i>geom.h</i>)</h3>
 			<p>There are two internal data structures designed for BoT listed as follows.
 			<ul>
@@ -55,11 +53,14 @@
 			
 			<h3>How to use <i>*thickness*</i> value in BoT when ray-tracing</h3>
 			<p>Actually, the most related utilization of this property is in <i>static int XGLUE(rt_bot_plate_segs_, TRI_TYPE)(...)</i>(about line 382 in g_bot_include.c), this function is used to make segments for each hit, cause we have two types of 'plate mode': <i>RT_BOT_PLATE</i> and <i>RT_BOT_PLATE_NOCOS</i>, so firstly, we compute LOS(Line Of Sight) instead of using thickness value directly. If the mode is <i>RT_BOT_PLATE_NOCOS</i>, it means that the advancing distance of the ray does not consider the oblique angle between ray direction and the normal of hit point. While in <i>RT_BOT_PLATE_NOCOS</i> mode, it will.</p>
-			
+
 			<h3>Designing data structure for B-rep primitives</h3>
-			<p>TBD</p>
-			
-			</font>
+			<p>After talking with <a href='http://brlcad.org/wiki/User:Sean'>@brlcad</a>, with his suggestion, I summarize all the items we have discussed.</p>
+			<ul>
+				<li>openNURBS APIs have already provided a variable for attaching additional user defined application specified data. If we only want to store *thickness* value, that should be enough. To be more detailed, in the class definition of <i>ON_Brep</i>(a built-in class in openNURBS for representing B-rep model), there exists a variable, named <i>m_brep_user</i>(about line 3920 in opennurbs_brep.h), available for application based utilization, so it can be used to store additional values for whole brep, like default/global thickness value mentioned by <a href='http://brlcad.org/wiki/User:Sean'>@brlcad</a>. Similarly, for each face, its corresponding data structure is ON_BrepFace, it also contains a variabe called <i>m_face_user</i> for same purpose. So we can exploit this built-in property and assign *thickness* value for brep or even each face in a more convenient way.</li>
+				<li>Cause the *thickness* value may tell us everything about the mode(NULL == SOLID, 0 == SURFACE, >0 == PLATE), so at the beginning, we can consider to discard this flag. Besides, for simplicity, we will not consider NOCOS mode at present.</li>
+				<li><b>About how to use face_mode flag, it is still mooted and under discussion.</b></li>
+			</ul>
 			
 		</section>
 	</div>
