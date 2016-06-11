@@ -32,16 +32,25 @@
 			<h2><a id="week_3" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 3</h2>
 
 			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
+						
+			<h3>Re-organizing the ray tracing procedure of BoT</h3>
+			<p>Actually, the ray tracing of BoT is a good example to follow. So I read the code again and try to dig out more information about it. Basically, there are several related functions that are needed to be called, which are universe frameworks for most primitives, during the procedure. I will follow the function calling stack and list them step by step, and it would be much helpful for my thought and designing patterns for plate mode NURBS ray tracing.</p>
+			
+			<ol>
+				<li><b>Preparation</b></li>
+				<ul>
+					<li>rt_bot_prep(...): check if the input data is a valid BoT and create <i>bot_specific</i> from internal bot data structure for ray tracing.</li>
+					<li>rt_bot_prep_pieces(...): organize a number of triangles as each piece for supporting solid 'pieces'. <br />--------------------------------------------------<br /><b>[PROBLEM]</b> In <i>g_bot_include.c</i>(about line 332), there is a condition to decide if we need to prepare solid pieces showed as follows:<br /><i>if (rt_bot_minpieces > 0 && bot_ip->num_faces > rt_bot_minpieces) { ... }</i><br />As far as I know, in the implementation of pieces generation, it collects 4(defined by <i>rt_bot_tri_per_piece</i> or <i>RT_DEFAULT_TRIS_PER_PIECE</i>) faces together to generate 1 piece, so is this condition a correct representation instead of:<br />if ( ... && bot_ip->num_faces > rt_bot_minpieces * rt_bot_tri_per_piece) { ... } <br />--------------------------------------------------</li>
+				</ul>
+				
+				<li><b>Shooting rays</b></li>
+				<ul>
+					<li>rt_bot_piece_shot(...): intersect a ray with a list of "pieces" of a BoT.</li>
+					<li>rt_bot_masksegs(...): make segments from an array of hits depending on the mode of the BoT.</li>
+				</ul>
+			</ol>
 			
 			<font color='red'>
-			
-			<h3>Re-organizing the ray tracing procedure of BoT</h3>
-			<p>Actually, the ray tracing of BoT is a good example to follow. So I read the code again and try to dig out more information about it. Basically, there are several related functions that are needed to be called, for most primitives, during the procedure. I will follow the function calling stack and list them step by step, and it would be much helpful for my thought and designing patterns for plate mode NURBS ray tracing.</p>
-			
-			<ul>
-				<li><b>Preparation</b>: <i>rt_bot_prep(...)</i> -> <i>rt_bot_prep_pieces(...)</i></li>
-				<li><b>Shooting ray</b>: <i>rt_bot_piece_shot(...)</i> -> <i>rt_bot_plate_segs(...)</i> -> <i>rt_bot_makesegs(...)</i></li>
-			</ul>
 			
 			<h3>Current status of NURBS ray tracing</h3>
 			<p>TBD</p>
