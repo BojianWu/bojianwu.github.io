@@ -26,6 +26,7 @@
 			<p><a href='../week_1/index.html'>Week 1</p>
 			<p><a href='../week_2/index.html'>Week 2</p>
 			<p><a href='../week_3/index.html'>Week 3</p>
+			<p><a href='../week_4/index.html'>Week 4</p>
 		</header>
 		
 		<section>
@@ -35,7 +36,7 @@
 			<p>
 			<table border='1'>
 				<tr>
-					<th width='100'>20160516</td>
+					<th width='100'>20160516</th>
 					<td>
 						<li>Running an example with input of 'plate mode' single plane and following the source code of <i>rtshot.c</i>, then getting a general understanding of the raytracing process(several main procedure including building directory, walking tree, preparing data and ray tracing etc.)</li>
 					</td>
@@ -85,35 +86,35 @@
 			<p>
 			<table border='1'>
 				<tr>
-					<th width='100'>20160523</td>
+					<th width='100'>20160523</th>
 					<td>Reading <i>g_bot_include.c</i> cause this file contains lots of ray-tracing related basic routines(and these functions are almost finally called when doing ray-tracing in BoT primitives). Besides, *thickness* values are primary used in <i>static int XGLUE(rt_bot_plate_segs_, TRI_TYPE)(...).</i></td>
 				</tr>
 				<tr>
-					<th width='100'>20160524</td>
+					<th width='100'>20160524</th>
 					<td>Understanding data structure for BoT and starting designing data structure for B-rep primitives in order to integrate some extra information like thickness value array and so on.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160525</td>
+					<th width='100'>20160525</th>
 					<td>Discussing how to design the data structure of brep.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160526</td>
+					<th width='100'>20160526</th>
 					<td>Going through source code of openNURBS and checking if we can integrate additional information, like thickness value, into its built-in data structure.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160527</td>
+					<th width='100'>20160527</th>
 					<td>Getting familiar with openNURBS</td>
 				</tr>
 				<tr>
-					<th width='100'>20160528</td>
+					<th width='100'>20160528</th>
 					<td>Weekend</td>
 				</tr>
 				<tr>
-					<th width='100'>20160529</td>
+					<th width='100'>20160529</th>
 					<td>Weekend</td>
 				</tr>				
 				<tr>
-					<th width='100'>Summary</td>
+					<th width='100'>Summary</th>
 					<td>Actually, the basic task in this week is about how to design the data structure for brep primitives, after reading source code of openNURBS(opennurbs_brep.h), I found there exists a built-in variable both in <i>ON_Brep</i> and <i>ON_BrepFace</i> for storing user defined data, so we can consider to use it for our need and store *thickness* value into brep or each face.</td>
 				</tr>
 			</table>
@@ -123,35 +124,35 @@
 			<p>
 			<table border='1'>
 				<tr>
-					<th width='100'>20160530</td>
+					<th width='100'>20160530</th>
 					<td>Drafting a first version demo for generating plate mode brep primitives.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160531</td>
+					<th width='100'>20160531</th>
 					<td>Designing a new tool named 'brep_surf' and generating plate mode brep which contains only one face, by mimicing sample codes from 'brep_cobb' and 'brep_cube' etc.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160601</td>
+					<th width='100'>20160601</th>
 					<td>Exporting and importing brep primitives. Cause openNURBS does not support archiving user defined data, so I need to write it manually.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160602</td>
+					<th width='100'>20160602</th>
 					<td>Changing information related to outputing information when using 'l' command in MGED.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160603</td>
+					<th width='100'>20160603</th>
 					<td>Discussion the availability of my code and trying to refine it later.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160604</td>
+					<th width='100'>20160604</th>
 					<td>Weekend</td>
 				</tr>
 				<tr>
-					<th width='100'>20160605</td>
+					<th width='100'>20160605</th>
 					<td>Weekend</td>
 				</tr>				
 				<tr>
-					<th width='100'>Summary</td>
+					<th width='100'>Summary</th>
 					<td>This week, I mainly focus on plate mode NURBS export and import. Besides, in order to validate my code, I design a tool named 'brep_surf' to generate a plate mode single brep surface with thickness value provided by command line arguments. From next week, I will pay more attentions on ray tracing part.</td>
 				</tr>
 			</table>
@@ -161,33 +162,71 @@
 			<p>
 			<table border='1'>
 				<tr>
-					<th width='100'>20160606</td>
+					<th width='100'>20160606</th>
 					<td>Following ray tracing pipeline of BoT again and re-organizing my thought of the whole procedure.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160607</td>
+					<th width='100'>20160607</th>
 					<td>Paying attention to ray tracing method involved in BoT like 'piece_shot' and 'shot', they are different and will be called in different situation.</td>
 				</tr>
 				<tr>
-					<th width='100'>20160608</td>
+					<th width='100'>20160608</th>
 					<td>Reading code about how to build BVH for b-rep primitive, the related function is <i>brep_build_bvh(...)<i>(about line 353 in brep.cpp).</td>
 				</tr>
 				<tr>
-					<th width='100'>20160609</td>
+					<th width='100'>20160609</th>
 					<td rowspan='3'>Chinese Traditional Dragon Boat Festival</td>
 				</tr>
 				<tr>
-					<th width='100'>20160610</td>
+					<th width='100'>20160610</th>
 				</tr>
 				<tr>
-					<th width='100'>20160611</td>
+					<th width='100'>20160611</th>
 				</tr>
 				<tr>
-					<th width='100'>20160612</td>
+					<th width='100'>20160612</th>
+					<td>Understanding the procedure of build bounding volume hierarchy(BVH) for b-rep primitives.</td>
+				</tr>				
+				<tr>
+					<th width='100'>Summary</th>
+					<td>In order to start to work on ray tracing of plate mode NURBS smoothly, I firstly re-organize the related codes for BoT, cause it is a good template to follow, and this counts for the preparation for my later work.</td>
+				</tr>
+			</table>
+			</p>
+			
+			<h3 id='week_4'><a href="../week_4/index.html">Week 4</a><h3>
+			<p>
+			<table border='1'>
+				<tr>
+					<th width='100'>20160613</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th width='100'>20160614</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th width='100'>20160615</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th width='100'>20160616</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th width='100'>20160617</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th width='100'>20160618</th>
+					<td>-</td>
+				</tr>
+				<tr>
+					<th width='100'>20160619</th>
 					<td>-</td>
 				</tr>				
 				<tr>
-					<th width='100'>Summary</td>
+					<th width='100'>Summary</th>
 					<td>-</td>
 				</tr>
 			</table>
