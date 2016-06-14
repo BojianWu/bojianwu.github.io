@@ -57,6 +57,28 @@
 			
 			<p>By the way, in order to accelerate the ray-NURBS intersection test and enable precise computation, we can also partition the ray into several pieces and use bounding box of each ray partition to do intersection test with bounding box of each node of BVH. By doing this, we can improve the precision of initial guess of intersection point.</p>
 			
+			<h3>Current status of NURBS ray tracing</h3>
+			
+			<p>In order to figure out current progress of NURBS ray tracing, I design a B-rep model and test it with ray tracing, here are some results presented below. Here, the model is not a closed mesh, as you can see, it misses a piece of surface. Actually, it is what we really need.</p>
+			
+			<p><b>[I will post more detailed analysis later...]</b></p>
+			
+			<table border='1'>
+				<tr>
+					<th>B-rep Model</th>
+					<th>Shot along X axis</th>
+					<th>Shot along Y axis</th>
+					<th>Shot along Z axis</th>
+				</tr>
+				<tr>
+					<td><a href="brep_model.png"><img src="brep_model.png" /></a></td>
+					<td><a href="shot_x_axis.png"><img src="shot_x_axis.png" /></a></td>
+					<td><a href="shot_y_axis.png"><img src="shot_y_axis.png" /></a></td>
+					<td><a href="shot_z_axis.png"><img src="shot_z_axis.png" /></a></td>
+				</tr>
+			</table>
+			</p>
+			
 			</font>
 
 		</section>
