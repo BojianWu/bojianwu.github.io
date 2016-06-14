@@ -36,8 +36,26 @@
 			
 			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
 						
-			<h3>TBD</h3>
-			<p>TBD</p>
+			<h3>Practical Ray Tracing of Trimmed NURBS Surface[<a href="https://www.cs.utah.edu/~shirley/papers/raynurbs.pdf">download</a>]</h3>
+			<p>In BRL-CAD, they use algorithms mentioned in this paper to do ray tracing of trimmed NURBS surface, actually in <i>brep.cpp</i>, functions whose name starts with '<i>utah_</i>' is an implementation of the algorithms proposed in this paper.</p>
+			
+			<p>Here I will give a brief introduction of it as follows.</p>
+			
+			<p>Generally speaking, it proposes a practical method suitable to implementation in general ray tracing programs. Besides, it also supports the direct use of untessellated trimmed NURBS surfaces. The key idea is outlined as follows(taken from the paper).</p>
+			
+			<img src='alg_intro.png' />
+			
+			<p>The simplified pipeline for computing ray-NURBS intersections usually has three main components: flattening, generating the BVH(Bounding Volume Hierarchy) and root finding.</p>
+			
+			<table>
+				<li><b>Flattening: </b>Refining/Subdividing the control mesh so that each span(bounded by parameters in two direction defined by u and v) meets some flatness criteria. It is used to make sure that the initial guess of intersection point would be more close to the real solution. That is to say, we only need to do the guess in the patch defined by the span but not the whole mesh. The related two approaches are refinement of knot vector and adaptive subdivision. Usually, subdivision based methods will increase memory use which can be detrimental to runtime efficiency. So this paper discuss refinement based method which is proved to be more effcient.</li>
+				<br />
+				<li><b>Generating the BVH: </b>The BVH is represented as a tree structure whose root and internal nodes will contain simple primitives that buond portions of the underlying surface. The leaves of the tree are special objects which are used to provide an initial guess for later computation. Usually, we use AABBs as the primitives because they can be very flat and tightly arranged compared with others.</li>
+				<br />
+				<li><b>Root finding: </b>For efficient computation of ray-NURBS intersection, we employ Newton iteration to solve the problem. After getting the initial guess of intersection point, we use gradient descent method to optimize the result gradually.</li>
+			</table>
+			
+			<p>By the way, in order to accelerate the ray-NURBS intersection test and enable precise computation, we can also partition the ray into several pieces and use bounding box of each ray partition to do intersection test with bounding box of each node of BVH. By doing this, we can improve the precision of initial guess of intersection point.</p>
 			
 			</font>
 
