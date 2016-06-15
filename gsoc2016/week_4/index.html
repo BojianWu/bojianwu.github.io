@@ -31,8 +31,6 @@
 		
 		<section>
 			<h2><a id="week_4" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 4</h2>
-
-			<font color='red'>
 			
 			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
 						
@@ -57,24 +55,44 @@
 			
 			<p>By the way, in order to accelerate the ray-NURBS intersection test and enable precise computation, we can also partition the ray into several pieces and use bounding box of each ray partition to do intersection test with bounding box of each node of BVH. By doing this, we can improve the precision of initial guess of intersection point.</p>
 			
+			<font color='red'>
+			
 			<h3>Current status of NURBS ray tracing</h3>
 			
-			<p>In order to figure out current progress of NURBS ray tracing, I design a B-rep model and test it with ray tracing, here are some results presented below. Here, the model is not a closed mesh, as you can see, it misses a piece of surface. Actually, it is what we really need.</p>
+			<p>In order to figure out current status of NURBS ray tracing, I design a B-rep model and test it with ray tracing, here are some results presented below. Please notice that, the model is not a closed mesh, as you can see, it misses a piece of surface. Actually, it is what we really need.</p>
 			
-			<p><b>[I will post more detailed analysis later...]</b></p>
+			<p>In order to keep consistent with ray tracing result of BoT(both in surface mode and plate mode) primitives, I also design a similar mesh like B-rep model illustrated as follows. Here, I will give a brief analysis of the result because it is very important for later coding. As I mentioned before, some related ray tracing routines implemented in BoT primitives are excellect examples to follow.
+			
+			<p>I have made a conclusion below in order to compare the different behaviours between these two primitives.</p>
+			
+			<p>For B-rep, currently, it will only report a pair of hit points which are located in <b>different</b> positions on the mesh. Please refer to the 'Shot along Y axis' and 'Shot along Z axis' result for a more intuitive understanding. But if we only have one hit point, like 'Shot along X axis', it will report a miss, however you should know it actually hits the surface. Actually, for BoT, not matter in surface mode or plate mode, each hit will contain both in point and out point even if they are the same point but with different normal.</p>
+			
+			<p>So, this is what I need to do later...</p>
 			
 			<table border='1'>
 				<tr>
-					<th>B-rep Model</th>
+					<th>Model</th>
 					<th>Shot along X axis</th>
 					<th>Shot along Y axis</th>
 					<th>Shot along Z axis</th>
 				</tr>
 				<tr>
-					<td><a href="brep_model.png"><img src="brep_model.png" /></a></td>
-					<td><a href="shot_x_axis.png"><img src="shot_x_axis.png" /></a></td>
-					<td><a href="shot_y_axis.png"><img src="shot_y_axis.png" /></a></td>
-					<td><a href="shot_z_axis.png"><img src="shot_z_axis.png" /></a></td>
+					<td><a href="brep_model.png"><img src="brep_model.png" /></a><br /><b>(B-rep)</b></td>
+					<td><a href="brep_shot_x_axis.png"><img src="brep_shot_x_axis.png" /></a></td>
+					<td><a href="brep_shot_y_axis.png"><img src="brep_shot_y_axis.png" /></a></td>
+					<td><a href="brep_shot_z_axis.png"><img src="brep_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model.png"><img src="bot_model.png" /></a><br /><b>(BoT)</b></td>
+					<td><a href="bot_shot_x_axis.png"><img src="bot_shot_x_axis.png" /></a></td>
+					<td><a href="bot_shot_y_axis.png"><img src="bot_shot_y_axis.png" /></a></td>
+					<td><a href="bot_shot_z_axis.png"><img src="bot_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model.png"><img src="bot_model.png" /></a><br /><b>(BoT in plate mode)</b></td>
+					<td><a href="bot_t_shot_x_axis.png"><img src="bot_t_shot_x_axis.png" /></a></td>
+					<td><a href="bot_t_shot_y_axis.png"><img src="bot_t_shot_y_axis.png" /></a></td>
+					<td><a href="bot_t_shot_z_axis.png"><img src="bot_t_shot_z_axis.png" /></a></td>
 				</tr>
 			</table>
 			</p>
