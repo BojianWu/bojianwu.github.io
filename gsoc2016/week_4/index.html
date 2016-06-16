@@ -59,17 +59,18 @@
 			
 			<h3>Current status of NURBS ray tracing</h3>
 			
-			<p>In order to figure out current status of NURBS ray tracing, I design a B-rep model and test it with ray tracing, here are some results presented below. Please notice that, the model is not a closed mesh, as you can see, it misses a piece of surface. Actually, it is what we really need.</p>
+			<p>In order to figure out current status of NURBS ray tracing, I design several examples to make comparisons between B-rep and BoT as follows, because what I want to do is trying to keep behaviours occurred both in B-rep and BoT more consistent.</p>
 			
-			<p>In order to keep consistent with ray tracing result of BoT(both in surface mode and plate mode) primitives, I also design a similar mesh like B-rep model illustrated as follows. Here, I will give a brief analysis of the result because it is very important for later coding. As I mentioned before, some related ray tracing routines implemented in BoT primitives are excellect examples to follow.
+			<p>Generally speaking, I have four groups of examples below which can always be summerized as ray traing of open/closed mesh with ray starting from inside/outside of the mesh.(To be more precise, when the mesh is open, we think if the starting point of ray is inside the bounding box of mesh, then the ray starts from the inside.)</p>
 			
-			<p>I have made a conclusion below in order to compare the different behaviours between these two primitives.</p>
+			<p>I have made a conclusion with brief analysis of the all the results.</p>
 			
-			<p>For B-rep, currently, it will only report a pair of hit points which are located in <b>different</b> positions on the mesh. Please refer to the 'Shot along Y axis' and 'Shot along Z axis' result for a more intuitive understanding. But if we only have one hit point, like 'Shot along X axis', it will report a miss, however you should know it actually hits the surface. Actually, for BoT, not matter in surface mode or plate mode, each hit will contain both in point and out point even if they are the same point but with different normal.</p>
+			<p>Let's start from the simple case. If the mesh is closed(see Figure 4-3 and 4-4), not matter in surface mode or plate mode, all the behaviours seem to be similar by comparing B-rep and BoT, so in our later implementation, we do not need to pay much more attention here if the mesh is closed.</p>
 			
-			<p>So, this is what I need to do later...</p>
+			<p>Then if the mesh is not closed, things are different. For B-rep, currently, it will only report a pair of hit points which are located in <b>different</b> positions on the mesh. Please refer to the 'Shot along Y axis' and 'Shot along Z axis' result in Figure 4-1 and Figure 4-2 for a more intuitive understanding. But if we only have one hit point(you can get it by debugging the program and following the code step by step), like 'Shot along X axis', it will report a miss, however you should know that the ray actually hits the surface, so the result here is not so reasonable. Basically, for BoT, both in surface mode and plate mode, each hit will contain both in point and out point even they are the same but with different normal. So in our real implementation, we need to pay more attentions to this part and try to make it more reasonable.</p>
 			
 			<table border='1'>
+			<caption>Table 4-1: <b>Open</b> mesh with ray starting <b>outside</b> of it</caption>
 				<tr>
 					<th>Model</th>
 					<th>Shot along X axis</th>
@@ -78,24 +79,107 @@
 				</tr>
 				<tr>
 					<td><a href="brep_model.png"><img src="brep_model.png" /></a><br /><b>(B-rep)</b></td>
-					<td><a href="brep_shot_x_axis.png"><img src="brep_shot_x_axis.png" /></a></td>
-					<td><a href="brep_shot_y_axis.png"><img src="brep_shot_y_axis.png" /></a></td>
-					<td><a href="brep_shot_z_axis.png"><img src="brep_shot_z_axis.png" /></a></td>
+					<td><a href="4_1_brep_shot_x_axis.png"><img src="4_1_brep_shot_x_axis.png" /></a></td>
+					<td><a href="4_1_brep_shot_y_axis.png"><img src="4_1_brep_shot_y_axis.png" /></a></td>
+					<td><a href="4_1_brep_shot_z_axis.png"><img src="4_1_brep_shot_z_axis.png" /></a></td>
 				</tr>
 				<tr>
 					<td><a href="bot_model.png"><img src="bot_model.png" /></a><br /><b>(BoT)</b></td>
-					<td><a href="bot_shot_x_axis.png"><img src="bot_shot_x_axis.png" /></a></td>
-					<td><a href="bot_shot_y_axis.png"><img src="bot_shot_y_axis.png" /></a></td>
-					<td><a href="bot_shot_z_axis.png"><img src="bot_shot_z_axis.png" /></a></td>
+					<td><a href="4_1_bot_shot_x_axis.png"><img src="4_1_bot_shot_x_axis.png" /></a></td>
+					<td><a href="4_1_bot_shot_y_axis.png"><img src="4_1_bot_shot_y_axis.png" /></a></td>
+					<td><a href="4_1_bot_shot_z_axis.png"><img src="4_1_bot_shot_z_axis.png" /></a></td>
 				</tr>
 				<tr>
 					<td><a href="bot_model.png"><img src="bot_model.png" /></a><br /><b>(BoT in plate mode)</b></td>
-					<td><a href="bot_t_shot_x_axis.png"><img src="bot_t_shot_x_axis.png" /></a></td>
-					<td><a href="bot_t_shot_y_axis.png"><img src="bot_t_shot_y_axis.png" /></a></td>
-					<td><a href="bot_t_shot_z_axis.png"><img src="bot_t_shot_z_axis.png" /></a></td>
+					<td><a href="4_1_bot_t_shot_x_axis.png"><img src="4_1_bot_t_shot_x_axis.png" /></a></td>
+					<td><a href="4_1_bot_t_shot_y_axis.png"><img src="4_1_bot_t_shot_y_axis.png" /></a></td>
+					<td><a href="4_1_bot_t_shot_z_axis.png"><img src="4_1_bot_t_shot_z_axis.png" /></a></td>
 				</tr>
 			</table>
-			</p>
+			
+			<table border='1'>
+			<caption>Table 4-2: <b>Open</b> mesh with ray starting <b>inside</b> of it</caption>
+				<tr>
+					<th>Model</th>
+					<th>Shot along X axis</th>
+					<th>Shot along Y axis</th>
+					<th>Shot along Z axis</th>
+				</tr>
+				<tr>
+					<td><a href="brep_model.png"><img src="brep_model.png" /></a><br /><b>(B-rep)</b></td>
+					<td><a href="4_2_brep_shot_x_axis.png"><img src="4_2_brep_shot_x_axis.png" /></a></td>
+					<td><a href="4_2_brep_shot_y_axis.png"><img src="4_2_brep_shot_y_axis.png" /></a></td>
+					<td><a href="4_2_brep_shot_z_axis.png"><img src="4_2_brep_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model.png"><img src="bot_model.png" /></a><br /><b>(BoT)</b></td>
+					<td><a href="4_2_bot_shot_x_axis.png"><img src="4_2_bot_shot_x_axis.png" /></a></td>
+					<td><a href="4_2_bot_shot_y_axis.png"><img src="4_2_bot_shot_y_axis.png" /></a></td>
+					<td><a href="4_2_bot_shot_z_axis.png"><img src="4_2_bot_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model.png"><img src="bot_model.png" /></a><br /><b>(BoT in plate mode)</b></td>
+					<td><a href="4_2_bot_t_shot_x_axis.png"><img src="4_2_bot_t_shot_x_axis.png" /></a></td>
+					<td><a href="4_2_bot_t_shot_y_axis.png"><img src="4_2_bot_t_shot_y_axis.png" /></a></td>
+					<td><a href="4_2_bot_t_shot_z_axis.png"><img src="4_2_bot_t_shot_z_axis.png" /></a></td>
+				</tr>
+			</table>
+			
+			<table border='1'>
+			<caption>Table 4-3: <b>Closed</b> mesh with ray starting <b>inside</b> of it</caption>
+				<tr>
+					<th>Model</th>
+					<th>Shot along X axis</th>
+					<th>Shot along Y axis</th>
+					<th>Shot along Z axis</th>
+				</tr>
+				<tr>
+					<td><a href="brep_model_closed.png"><img src="brep_model_closed.png" /></a><br /><b>(Closed B-rep)</b></td>
+					<td><a href="4_3_brep_shot_x_axis.png"><img src="4_3_brep_shot_x_axis.png" /></a></td>
+					<td><a href="4_3_brep_shot_y_axis.png"><img src="4_3_brep_shot_y_axis.png" /></a></td>
+					<td><a href="4_3_brep_shot_z_axis.png"><img src="4_3_brep_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model_closed.png"><img src="bot_model_closed.png" /></a><br /><b>(Closed BoT)</b></td>
+					<td><a href="4_3_bot_shot_x_axis.png"><img src="4_3_bot_shot_x_axis.png" /></a></td>
+					<td><a href="4_3_bot_shot_y_axis.png"><img src="4_3_bot_shot_y_axis.png" /></a></td>
+					<td><a href="4_3_bot_shot_z_axis.png"><img src="4_3_bot_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model_closed.png"><img src="bot_model_closed.png" /></a><br /><b>(Closed BoT in plate mode)</b></td>
+					<td><a href="4_3_bot_t_shot_x_axis.png"><img src="4_3_bot_t_shot_x_axis.png" /></a></td>
+					<td><a href="4_3_bot_t_shot_y_axis.png"><img src="4_3_bot_t_shot_y_axis.png" /></a></td>
+					<td><a href="4_3_bot_t_shot_z_axis.png"><img src="4_3_bot_t_shot_z_axis.png" /></a></td>
+				</tr>
+			</table>
+			
+			<table border='1'>
+			<caption>Table 4-4: <b>Closed</b> mesh with ray starting <b>inside</b> of it</caption>
+				<tr>
+					<th>Model</th>
+					<th>Shot along X axis</th>
+					<th>Shot along Y axis</th>
+					<th>Shot along Z axis</th>
+				</tr>
+				<tr>
+					<td><a href="brep_model_closed.png"><img src="brep_model_closed.png" /></a><br /><b>(Closed B-rep)</b></td>
+					<td><a href="4_4_brep_shot_x_axis.png"><img src="4_4_brep_shot_x_axis.png" /></a></td>
+					<td><a href="4_4_brep_shot_y_axis.png"><img src="4_4_brep_shot_y_axis.png" /></a></td>
+					<td><a href="4_4_brep_shot_z_axis.png"><img src="4_4_brep_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model_closed.png"><img src="bot_model_closed.png" /></a><br /><b>(Closed BoT)</b></td>
+					<td><a href="4_4_bot_shot_x_axis.png"><img src="4_4_bot_shot_x_axis.png" /></a></td>
+					<td><a href="4_4_bot_shot_y_axis.png"><img src="4_4_bot_shot_y_axis.png" /></a></td>
+					<td><a href="4_4_bot_shot_z_axis.png"><img src="4_4_bot_shot_z_axis.png" /></a></td>
+				</tr>
+				<tr>
+					<td><a href="bot_model_closed.png"><img src="bot_model_closed.png" /></a><br /><b>(Closed BoT in plate mode)</b></td>
+					<td><a href="4_4_bot_t_shot_x_axis.png"><img src="4_4_bot_t_shot_x_axis.png" /></a></td>
+					<td><a href="4_4_bot_t_shot_y_axis.png"><img src="4_4_bot_t_shot_y_axis.png" /></a></td>
+					<td><a href="4_4_bot_t_shot_z_axis.png"><img src="4_4_bot_t_shot_z_axis.png" /></a></td>
+				</tr>
+			</table>
 			
 			</font>
 
