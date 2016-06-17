@@ -185,7 +185,7 @@
 			
 			<p>Here, I will show some results below. As we can see, for open mesh in plate mode, the result is satisfactory at present by comparing with the results shown in Table 4-1 and 4-2.</p>
 			
-			<p>Basic idea here is to seperate one hit into two hit points including in one and out one no matter it is in surface mode or plate mode if the mesh is open. In surface mode, the in and out point should be the same one but with opposite normal direction. But in plate mode, things change differently, we need to offset the in/out hit distance according to the thickness value assigned to the mesh. In my implementation, I center the real hit point and move the in hit point along the reverse incident shooting ray direction and vice verse for out one.</p>
+			<p>Basic idea here is to seperate one hit into two hit points including in one and out one no matter it is in surface mode or plate mode if the mesh is open. In surface mode, the in and out point should be the same one but with opposite normal direction. But in plate mode, things change differently, we need to offset the in/out hit distance according to the thickness value assigned to the mesh. In my implementation, I center the real hit point and move the in hit point along the reverse incident shooting ray direction with half thickness value and vice verse for out one.</p>
 			
 			<p>There is a delimma that encounted in Table 4-1, that is, in the old implementation, if we only have one hit point, it will report a miss, apparently it is un-reasonable, so in my new implementation, it will report a hit with two hit points even though they are the same one but different normal direction. This should be more acceptable for plate mode ray tracing.</p>
 			
@@ -212,7 +212,7 @@
 			</table>
 			
 			<table border="1">
-			<caption>Table 4-6: Normal Mode NURBS ray tracing<br /></caption>
+			<caption>Table 4-6: Surface Mode NURBS ray tracing<br /></caption>
 				<tr>
 					<th>Model</th>
 					<th>Shot along X axis</th>
