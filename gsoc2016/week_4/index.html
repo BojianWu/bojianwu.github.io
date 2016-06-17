@@ -55,8 +55,6 @@
 			
 			<p>By the way, in order to accelerate the ray-NURBS intersection test and enable precise computation, we can also partition the ray into several pieces and use bounding box of each ray partition to do intersection test with bounding box of each node of BVH. By doing this, we can improve the precision of initial guess of intersection point.</p>
 			
-			<font color='red'>
-			
 			<h3>Current status of NURBS ray tracing</h3>
 			
 			<p>In order to figure out current status of NURBS ray tracing, I design several examples to make comparisons between B-rep and BoT as follows, because what I want to do is trying to keep behaviours occurred both in B-rep and BoT more consistent.</p>
@@ -181,9 +179,15 @@
 				</tr>
 			</table>
 			
+			<font color='red'>
+			
 			<h3>Plate Mode NURBS ray tracing</h3>
 			
-			<p><b>[More details will be added later...]</b></p>
+			<p>Here, I will show some results below. As we can see, for open mesh in plate mode, the result is satisfactory at present by comparing with the results shown in Table 4-1 and 4-2.</p>
+			
+			<p>Basic idea here is to seperate one hit into two hit points including in one and out one no matter it is in surface mode or plate mode if the mesh is open. In surface mode, the in and out point should be the same one but with opposite normal direction. But in plate mode, things change differently, we need to offset the in/out hit distance according to the thickness value assigned to the mesh. In my implementation, I center the real hit point and move the in hit point along the reverse incident shooting ray direction and vice verse for out one.</p>
+			
+			<p>There is a delimma that encounted in Table 4-1, that is, in the old implementation, if we only have one hit point, it will report a miss, apparently it is un-reasonable, so in my new implementation, it will report a hit with two hit points even though they are the same one but different normal direction. This should be more acceptable for plate mode ray tracing.</p>
 			
 			<table border="1">
 			<caption>Table 4-5: Plate Mode NURBS ray tracing<br /><b>(All models below are created in plate mode, and global thickness value is 1mm.)</b></caption>
