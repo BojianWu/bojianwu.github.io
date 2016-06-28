@@ -34,6 +34,35 @@
 		<section>
 			<h2><a id="week_5" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 5</h2>
 			
+			<h3>Review of the ray tracing problem in <a href='../week_2/index.html'>Week 2</a></h3>
+			
+			<p>Previously, we have a ray tracing problem of NURBS, shortly speaking, when we pose the NURBS surface in front/side view, after ray tracing, we will get nothing, it seems to be a little bit weird, but I have figured it out now.</p>
+			
+			<p>Actually, in the old implementation of ray tracing for NURBS surface, if the count of hit points is one, then it will report a miss, because it always considers pairs of hit points(in/out pair) but not the odd number(maybe for compatible with plate mode). But obviously it is not so reasonable, because the ray do hit the surface but with just a in hit point without an out one. So after my modification of original implementation, the result should be more reasonable shown as below.</p>
+			
+			<p>
+			<table border='1'>
+				<tr>
+					<th></th>
+					<th>Front view</th>
+					<th>Back view</th>
+					<th>Side view</th>
+				</tr>
+				<tr>
+					<td width="135"><b>Original Model</b></td>
+					<td><a href="brep_front_view.png"><img src="brep_front_view.png"/></a></td>
+					<td><a href="brep_back_view.png"><img src="brep_back_view.png"/></a></td>
+					<td><a href="brep_side_view.png"><img src="brep_side_view.png"/></a></td>
+				</tr>
+				<tr>
+					<td><b>Ray-tracing Result</b></td>
+					<td><a href="brep_front_view_rt.png"><img src="brep_front_view_rt.png"/></a></td>
+					<td><a href="brep_back_view_rt.png"><img src="brep_back_view_rt.png"/></a></td>
+					<td><a href="brep_side_view_rt.png"><img src="brep_side_view_rt.png"/></a></td>
+				</tr>
+			</table>
+			</p>
+			
 			<h3>Preparation for mid-term evaluation</h3>
 			
 			<p>Because this week is for mid-term evaluation, so I will give a short summary of what I have done in previous several weeks.</p>
