@@ -66,6 +66,18 @@
 			
 			<p>Generally speaking, this pipeline is very clear, and it should be easy to implement, so I will try to integrate this algorithm into BRL-CAD later after discussion with my mentor.</p>
 			
+			<p>Besides, here is a <a href='https://wiki.blender.org/index.php/User:Jjoonathan/NURBS_Tessellation_Survey'>link</a> that generally introduces several tessellation methods used in practice.</p>
+			
+			<h3>Difference between subdivision and tessellation of NURBS in BRL-CAD</h3>
+			
+			<p>Previously, I have posted an E-mail in the mail-list about the difference between subdivision(surface tree subdivision in 'opennurbs_ext.cpp') and tessellation(about line 59 in 'nurb_tess.c' and about line 595 in 'bspline.cpp') of NURBS implemented in BRL-CAD, but now I have figured it out and make a short clarification of it here.</p>
+			
+			<p style="text-align:center"><a href='nurbs_subdivide.png'><img src='nurbs_subdivide.png' width='250'/></a></p>
+			
+			<p>Please refer to the figure above, it is the result of subdivision(recursive depth is 5), actually, the algorithm used is just to split parameter space(u and v) into half recursively and check if it is valid when doing a dichotomy. The purpose here is only for rendering, to be more precise, it even can not be considered as subdivision. </p>
+			
+			<p>Besides, the old implementation of tessellation is similar as above, but just with pre-computing the largest edge size in parameter space and then taking the edge size as a step to split the u and v space.</p>
+			
 			</font>
 		</section>
 	</div>
