@@ -38,6 +38,20 @@
 
 			<font color='red'>
 			
+			<h3>How to test plate mode NURBS raytracing?</h3>
+			
+			<p>After a short discussion with <a href=''>@starseeker</a> and <a href='http://brlcad.org/wiki/User:Sean'>@brlcad</a>, they give me some suggestions about how to do the test and verification, here I will make a summary.</p>
+			
+			<p>The primary task is to check the mathematical accuracy of the raytracing results. Since we have the thickness for solid model, it should always have the volume no matter it is thin or thick.</p>
+			
+			<p>The related tool used in such case is *gqa*, a BRL-CAD tool that will calculate the volume of objects using raytracing. It works by shooting grids of rays from the three-axis aligned directions. For example, we have a *shpere shell* which we can calculate a volume by using pure math formula: Volume(sph_outer) - Volume(sph_inner). Besides, using *gqa* we can also get a ray traced calculated result. If without any errors, the two values should be same.</p>
+			
+			<p>After the numerical test, we also need to do more nasty test, there is a surface in the repo(src/librt/tests/extreme_ssi_test.g), but at the beginning, we need to start with plate and sphere. With regard to the models used in the test of plate mode NURBS ray tracing, we also need more complex examples, like NURBS surface with trimmed curves, two surfaces joined at a seam, a high-order surface, a simple flat surface with vary thicknesses and so on.</p>
+			
+			<p>Still having lots of work to do..Cheer up..</p>
+			
+			</font>
+			
 			<h3>Tessellating Trimmed NURBS Surfaces[<a href='NURBS_tess.pdf'>Download</a>]</h3>
 
 			<p>This is a paper about NURBS tessellation published in 1995, it introduced a very efficient way to map triangulated parameter spaces into 3D and generate tessellated surface with given approximation error bound.</p>
@@ -77,8 +91,7 @@
 			<p>Please refer to the figure above, it is the result of subdivision(recursive depth is 5), actually, the algorithm used is just to split parameter space(u and v) into half recursively and check if it is valid when doing a dichotomy. The purpose here is only for rendering, to be more precise, it even can not be considered as subdivision. </p>
 			
 			<p>Besides, the old implementation of tessellation is similar as above, but just with pre-computing the largest edge size in parameter space and then taking the edge size as a step to split the u and v space.</p>
-			
-			</font>
+
 		</section>
 	</div>
 </body>
