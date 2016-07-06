@@ -45,6 +45,14 @@
 			
 			<p>Here is the source code of this simple <a href='brep-brep.cpp'>tool</a>.</p>
 			
+			<h3>Short plan for further testing of plate mode raytracing</h3>
+			
+			<li>Basic case: numerical validation of ray tracing for plate and sphere by using *gqa*(a built-in BRL-CAD tool) to calculate the volume.</li>
+			
+			<li>Then, for NURBS surfaces with unmated edges(like 1/6th of a Cobb sphere example), the accuracy of plate mode volume estimates should get lower as we increase the thickness, cause we'll "miss" grazing hits.</li>
+			
+			<li>Subsequently, we need to design more complex models like NURBS surface with trimmed edges, overlap and so on.</li>
+			
 			</font>
 
 		</section>
