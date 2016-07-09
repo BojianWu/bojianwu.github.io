@@ -36,8 +36,6 @@
 			<h2><a id="week_7" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 7</h2>
 			
 			<h3><font color='red'>[Texts marked with red are recent works, and I will update it frequently.]</font></h3>
-
-			<font color='red'>
 			
 			<h3>Transforming old B-rep model into my new format</h3>
 			
@@ -47,11 +45,134 @@
 			
 			<h3>Short plan for further testing of plate mode raytracing</h3>
 			
+			<p>
 			<li>Basic case: numerical validation of ray tracing for plate and sphere by using *gqa*(a built-in BRL-CAD tool) to calculate the volume.</li>
 			
 			<li>Then, for NURBS surfaces with unmated edges(like 1/6th of a Cobb sphere example), the accuracy of plate mode volume estimates should get lower as we increase the thickness, cause we'll "miss" grazing hits.</li>
 			
 			<li>Subsequently, we need to design more complex models like NURBS surface with trimmed edges, overlap and so on.</li>
+			</p>
+			
+			<font color='red'>
+			
+			<h3>Issues when using *gqa*?</h3>
+
+			<p><b>PROBLEM 1</b>: I design a single plane(BoT with thickness) as input and try to compute its volume, but the program does not work and response, no matter what grid size I set, it always stuck in searching an optimal grid size to guarantee at least 1 samples per axis. What I think is that, actually, the single plane always does not have thickness in one dimension(for example, if the plane spans at x-y, and it do not have thickness along z axis), so if the ray comes from that direction, it will not hit the plane, never to say an optimal grid size, so the program can not proceed. This is just my inference, for more, I need to confirm with others or read the code.</p>
+			
+			<p><b>PROBLEM 2</b>: In order to solve the single plane problem described above, this time, I rotate the plate in two ways(along x axis and randomly posed) as shown below, but the weird thing happens, the two volumes are totally <b>different</b>? How could it be, the same plane in different position and rotation but same thickness value, while the volume is different?</p>
+			
+			<table border='1'>
+				<tr>
+					<td><a href='gqa_plate_2.png'><img src='gqa_plate_2.png' /></a></td>
+					<td><a href='plate_2_volume.png'><img src='plate_2_volume.png' /></a></td>
+				</tr>
+				<tr>
+					<td><a href='gqa_plate_3.png'><img src='gqa_plate_3.png' /></a></td>
+					<td><a href='plate_3_volume.png'><img src='plate_3_volume.png' /></a></td>
+				</tr>	
+			</table>
+
+			<h3>Examples by using *gqa* to compute the volume?</h3>
+						
+			I will separate this part into several sections, because *gqa* does not work correctly on single plane as illustrated above, so I will not test it but start with arc surface(1/8 of a sphere).
+			
+			<p><li><h4>Single plane</h4></li></p>
+			<table border='1'>
+				Math: Volume = ?
+				<tr>
+					<th>Surface Type</th>
+					<th>Model</th>
+					<th>Normal Mode</th>
+					<th>Plate Mode <br />(thickness = 1)</th>
+				</tr>
+				
+				<tr>
+					<td>BoT</td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+				</tr>
+			
+				<tr>
+					<td>B-rep</td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+				</tr>
+			</table>
+			
+			<p><li><h4>Arc surface(1/8 of sphere)</h4></li></p>						
+			<table border='1'>
+				Math: Volume = (4/3) * PI * (r1^3 - r2^3) / 8 = 9817.48 cm^3 (r1 = 2500.5mm, r2 = 2499.5mm)
+				<tr>
+					<th>Surface Type</th>
+					<th>Model</th>
+					<th>Normal Mode</th>
+					<th>Plate Mode <br />(thickness = 1)</th>
+				</tr>
+				<tr>
+					<td>BoT</td>
+					<td><a href='arc_surf.png'><img src='arc_surf.png' /></a></td>
+					<td><a href='arc_surf_1.png'><img src='arc_surf_1.png' /></a></td>
+					<td><a href='arc_surf_2.png'><img src='arc_surf_2.png' /></a></td>
+				</tr>
+				<tr>
+					<td>B-rep</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+				</tr>
+			</table>
+			
+			<p><li><h4>Sphere</h4></li></p>
+			<table border='1'>
+				Math: Volume = (4/3) * PI * (r1^3 - r2^3) = ? (r1 = ?, r2 = ?)
+				<tr>
+					<th>Surface Type</th>
+					<th>Model</th>
+					<th>Normal Mode</th>
+					<th>Plate Mode <br />(thickness = 1)</th>
+				</tr>
+				
+				<tr>
+					<td>BoT</td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+				</tr>
+			
+				<tr>
+					<td>B-rep</td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+				</tr>
+			</table>			
+			
+			<p><li><h4>Sphere with holes(for BoT, it is a hole, but for B-rep, it can be considered as trimmed)</h4></li></p>
+			<table border='1'>
+				Math: ?
+				<tr>
+					<th>Surface Type</th>
+					<th>Model</th>
+					<th>Normal Mode</th>
+					<th>Plate Mode <br />(thickness = 1)</th>
+				</tr>
+				
+				<tr>
+					<td>BoT</td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+				</tr>
+			
+				<tr>
+					<td>B-rep</td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+					<td><a href=''><img src='' /></a></td>
+				</tr>
+			</table>
 			
 			</font>
 
