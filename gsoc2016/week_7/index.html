@@ -52,10 +52,8 @@
 			
 			<li>Subsequently, we need to design more complex models like NURBS surface with trimmed edges, overlap and so on.</li>
 			</p>
-			
-			<font color='red'>
-			
-			<h3>Issues when using *gqa*?</h3>
+						
+			<h3><font color='red'>Issues when using *gqa*?</font></h3>
 
 			<p><b>PROBLEM 1</b>: I design a single plane(BoT with thickness) as input and try to compute its volume, but the program does not work and response, no matter what grid size I set, it always stuck in searching an optimal grid size to guarantee at least 1 samples per axis. What I think is that, actually, the single plane always does not have thickness in one dimension(for example, if the plane spans at x-y, and it do not have thickness along z axis), so if the ray comes from that direction, it will not hit the plane, never to say an optimal grid size, so the program can not proceed. This is just my inference, for more, I need to confirm with others or read the code.</p>
 			
@@ -74,36 +72,39 @@
 
 			<h3>Examples by using *gqa* to compute the volume?</h3>
 						
-			I will separate this part into several sections, because *gqa* does not work correctly on single plane as illustrated above, so I will not test it but start with arc surface(1/8 of a sphere).
+			I will separate this part into several sections, because *gqa* does not work correctly on single plane as illustrated above, so I will not test it but start with arc surface(1/2 of a sphere).
 			
 			<p><li><h4>Single plane</h4></li></p>
 			<table border='1'>
-				Math: Volume = ?
+				Math: Volume = a * b * thickness = 12.500 cm^3 (a = 2500mm, b = 2500mm, thickness = 2mm)
 				<tr>
 					<th>Surface Type</th>
 					<th>Model</th>
 					<th>Normal Mode</th>
-					<th>Plate Mode <br />(thickness = 1)</th>
+					<th>Plate Mode <br />(thickness = 2)</th>
 				</tr>
 				
 				<tr>
 					<td>BoT</td>
-					<td><a href=''><img src='' /></a></td>
-					<td><a href=''><img src='' /></a></td>
-					<td><a href=''><img src='' /></a></td>
+					<td><a href='3_plane_bot.png'><img src='3_plane_bot.png' /></a></td>
+					<td><a href='3_plane_bot_volume_1.png'><img src='3_plane_bot_volume_1.png' /></a></td>
+					<td><a href='3_plane_bot_volume_2.png'><img src='3_plane_bot_volume_2.png' /></a></td>
 				</tr>
 			
 				<tr>
 					<td>B-rep</td>
-					<td><a href=''><img src='' /></a></td>
-					<td><a href=''><img src='' /></a></td>
-					<td><a href=''><img src='' /></a></td>
+					<td><a href='3_plane_brep.png'><img src='3_plane_brep.png' /></a></td>
+					<td><a href='3_plane_brep_volume_1.png'><img src='3_plane_brep_volume_1.png' /></a></td>
+					<td><a href='3_plane_brep_volume_2.png'><img src='3_plane_brep_volume_2.png' /></a></td>
 				</tr>
+			<!--
+				<p><font color='red'><b>PROBLEM</b></font>: The size of this plane is 2.5cm*2.5cm with 45 degree rotation along x axis, and it is represented with BoT and B-rep, so theoretically, the volume should be exact same, but the result shows they are totally different. I do not really know what happens?</p>
+			-->
 			</table>
 			
-			<p><li><h4>Arc surface(1/8 of sphere)</h4></li></p>						
+			<p><li><h4>Hemisphere</h4></li></p>						
 			<table border='1'>
-				Math: Volume = (4/3) * PI * (r1^3 - r2^3) / 8 = 9817.48 cm^3 (r1 = 2500.5mm, r2 = 2499.5mm)
+				Math: Volume = (4/3) * PI * (r1^3 - r2^3) / 2 = 39269.91 cm^3 (r1 = 2500.5mm, r2 = 2499.5mm)
 				<tr>
 					<th>Surface Type</th>
 					<th>Model</th>
@@ -112,21 +113,21 @@
 				</tr>
 				<tr>
 					<td>BoT</td>
-					<td><a href='arc_surf.png'><img src='arc_surf.png' /></a></td>
-					<td><a href='arc_surf_1.png'><img src='arc_surf_1.png' /></a></td>
-					<td><a href='arc_surf_2.png'><img src='arc_surf_2.png' /></a></td>
+					<td><a href='2_hs_bot.png'><img src='2_hs_bot.png' /></a></td>
+					<td><a href='2_hs_bot_volume_1.png'><img src='2_hs_bot_volume_1.png' /></a></td>
+					<td><a href='2_hs_bot_volume_2.png'><img src='2_hs_bot_volume_2.png' /></a></td>
 				</tr>
 				<tr>
 					<td>B-rep</td>
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
+					<td><a href='2_hs_brep.png'><img src='2_hs_brep.png' /></a></td>
+					<td><a href='2_hs_brep_volume_1.png'><img src='2_hs_brep_volume_1.png' /></a></td>
+					<td><a href='2_hs_brep_volume_2.png'><img src='2_hs_brep_volume_2.png' /></a></td>
 				</tr>
 			</table>
 			
 			<p><li><h4>Sphere</h4></li></p>
 			<table border='1'>
-				Math: Volume = (4/3) * PI * (r1^3 - r2^3) = ? (r1 = ?, r2 = ?)
+				Math: Volume = -
 				<tr>
 					<th>Surface Type</th>
 					<th>Model</th>
@@ -151,7 +152,7 @@
 			
 			<p><li><h4>Sphere with holes(for BoT, it is a hole, but for B-rep, it can be considered as trimmed)</h4></li></p>
 			<table border='1'>
-				Math: ?
+				Math: -
 				<tr>
 					<th>Surface Type</th>
 					<th>Model</th>
@@ -174,6 +175,7 @@
 				</tr>
 			</table>
 			
+			<font color='red'>
 			</font>
 
 		</section>
