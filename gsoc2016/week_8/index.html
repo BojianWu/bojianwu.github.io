@@ -38,7 +38,14 @@
 
       <h3>Why does *gaq* give different result regarding to the same plane?</h3>
       <p>I finally figure out the reason. Actually, there are several different types for plate mode BoT, like 'plate', 'plate nocos' etc. For 'plate', when doing raytracing, it need to consider the oblique angle, but in 'plate nocos', the hit distance and points is calculated just by offsetting the origin hit points along ray direction.</h3>
-      <p>For more details, please refer to Week 7</p>
+      <p>For more details, please refer to Week 7.</p>
+
+      <h3>Analysis of gqa? Is it accurate?</h3>
+      <p>Actually, I am not so sure if gqa can provide an accurate result when computing volume of models. Cause I find that, it is highly related to ray tracing result. Even though the raytracing is accurate(using *rtshot* to check hit point, normal, distance etc.), gqa can not give correct result(with some errors). Maybe this is caused by the internal implementation of gqa, it use rays from three directions aligned with axis to trace the model and then calculate volume, it is related with ray grid sampling and others etc, so the result may not be consistent with mathematical calculations. </p>
+      <p>Besides, as I mentioned above, it is also related with type of plate, like 'plate' or 'plate-nocos', according to my assumption and inference, I think the volume is related to the distance between in/out hit points pair, so under different type, the raytracer may give various distance depending on whether considering the oblique angle. So the result differs.</p>
+
+      <h3>Examples by using *gqa* to compute the volume? (continued)</h3>
+      <p>TBD</p>
 
 		</section>
 	</div>
