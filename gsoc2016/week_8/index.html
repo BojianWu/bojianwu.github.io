@@ -44,8 +44,58 @@
       <p>Actually, I am not so sure if gqa can provide an accurate result when computing volume of models. Cause I find that, it is highly related to ray tracing result. Even though the raytracing is accurate(using *rtshot* to check hit point, normal, distance etc.), gqa can not give correct result(with some errors). Maybe this is caused by the internal implementation of gqa, it use rays from three directions aligned with axis to trace the model and then calculate volume, it is related with ray grid sampling and others etc, so the result may not be consistent with mathematical calculations. </p>
       <p>Besides, as I mentioned above, it is also related with type of plate, like 'plate' or 'plate-nocos', according to my assumption and inference, I think the volume is related to the distance between in/out hit points pair, so under different type, the raytracer may give various distance depending on whether considering the oblique angle. So the result differs.</p>
 
+      <h3>Memory leak in obj-g</h3>
+      <p>As I said before, the oblique angle may influence the result of computing volume, so I want to generate plate mode models without oblique. Again, I choose obj-g, this tool is handful. But, when I use '-o n' argument, it gives me prompts about memory leak this time(I remrmber it gave me errors before, but I solved it, for more details, please refer to the patch submitted to sourceforge).</p>
+      <p>I will paste the <a href="">patch</a> here later, just one line code...</p>
+
       <h3>Examples by using *gqa* to compute the volume? (continued)</h3>
-      <p>TBD</p>
+      <p><li><h4>Sphere</h4></li></p>
+      <table border='1'>
+        Math: Volume = -
+        <tr>
+          <th>Surface Type</th>
+          <th>Model</th>
+          <th>Normal Mode</th>
+          <th>Plate mode <br />(thickness = 1)</th>
+        </tr>
+        <tr>
+          <td>BoT</td>
+          <td><a href=''><img src=''></a></td>
+          <td><a href=''><img src=''></a></td>
+          <td><a href=''><img src=''></a></td>
+        </tr>
+        <tr>
+          <td>B-rep</td>
+          <td><a href=''><img src=''></a></td>
+          <td><a href=''><img src=''></a></td>
+          <td><a href=''><img src=''></a></td>
+        </tr>
+      </table>
+
+    <p><li><h4>Sphere with holes(for BoT, it is a hole, but for B-rep, it can be considered as trimmed)</h4></li></p>
+    <table border='1'>
+      Math: -
+      <tr>
+        <th>Surface Type</th>
+        <th>Model</th>
+        <th>Normal Mode</th>
+        <th>Plate Mode <br />(thickness = 1)</th>
+      </tr>
+
+      <tr>
+        <td>BoT</td>
+        <td><a href=''><img src=''></a></td>
+        <td><a href=''><img src=''></a></td>
+        <td><a href=''><img src=''></a></td>
+      </tr>
+
+      <tr>
+        <td>B-rep</td>
+        <td><a href=''><img src=''></a></td>
+        <td><a href=''><img src=''></a></td>
+        <td><a href=''><img src=''></a></td>
+      </tr>
+    </table>
 
 		</section>
 	</div>
