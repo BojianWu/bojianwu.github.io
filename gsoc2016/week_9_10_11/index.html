@@ -42,6 +42,11 @@
       <p>Besides, the slogon of this year is "Render the Possibilities", so rendering should also play an important role. Actually, which impressed me most was Uncharted 4(a game developed by Naughty Dog), it showed a lot of rendering techniques that really made each frame in the game realistic. At present, the rendering techniques almost focus on GI(Global Illumination) and real time rendering. It occurred to me that there was a session called "Real Time Live!", each company/academic institution had several minutes to show their lastest technique like rendering/gaming/modeling/film making and applications, it was totally real time and very impressive. </p>
       <p>Certainly, 'Computer Animation Festival' is the most attractive session each year.</p>
 
+      <h3>A short plan for later work(draft)</h3>
+      <p>
+      <li><b>Ray-tracing test</b>: including basic B-rep surface, trimmed B-rep surface and multiple overlay surfaces, besides adding thickness value to check the validility of plate mode ray-tracing</li>
+      <li><b>Numerical test</b>: testing numerical accuracy for plate-mode ray-tracing</li>
+      </p>
       
       <h3>Trimmed B-rep surface</h3>
       <p>I use openNURBS API to generate trimmed B-rep surface directly, here are two examples including <a href='brep_plane_trimmed.cpp'>trimmed plane</a> and <a href='brep_surf_trimmed.cpp'>trimmed cobb</a> surface(only one patch). Actually, in order to use its built-in API, firstly I need to understand its basic data structure, please refer to the offical <a href='http://developer.rhino3d.com/guides/cpp/brep_data_structure/'>tutorial</a> for more details. Besides, this <a href='https://github.com/mcneel/Rhino5Samples_CPP/blob/master/SampleCommands/cmdSampleGetPointOnMesh.cpp'>repo</a> gives many examples on how to use these APIs and generate different kinds of surfaces.</p>
