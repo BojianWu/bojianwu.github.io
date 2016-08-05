@@ -51,12 +51,13 @@
       <h3>Trimmed B-rep surface</h3>
       <p>I use openNURBS API to generate trimmed B-rep surface directly, here are two examples including <a href='brep_plane_trimmed.cpp'>trimmed plane</a> and <a href='brep_surf_trimmed.cpp'>trimmed cobb</a> surface(only one patch). Actually, in order to use its built-in API, firstly I need to understand its basic data structure, please refer to the offical <a href='http://developer.rhino3d.com/guides/cpp/brep_data_structure/'>tutorial</a> for more details. Besides, this <a href='https://github.com/mcneel/Rhino5Samples_CPP/blob/master/SampleCommands/cmdSampleGetPointOnMesh.cpp'>repo</a> gives many examples on how to use these APIs and generate different kinds of surfaces.</p>
       
-      <p>As shown below, the result is the ray-tracing of trimmed surface.</p>
+      <p>As shown below, the result is the ray-tracing of trimmed surface, and an overlay B-rep surface.</p>
       
       <table border='a'>
 	<tr>
 		<td><img width='500' src='brep_plane_trimmed_rt.png'/></td>
 		<td><img width='500' src='brep_surf_trimmed_rt.png'/></td>
+		<td><img width='500' src='brep_surf_overlay_rt.png'/></td>
 	</tr>
       </table>
       
