@@ -21,45 +21,42 @@
 			<h1>Bojian Wu</h1>
 			<h4>ustcbjwu [AT] gmail.com<br />Chinese Academy of Sciences (CAS)</h4>
 			<p><a href='../index.html'>Google Summer of Code(GSOC 2016) Blog</a></p>
-			<p><a href='../daily/index.html'>Daily and Weekly Update</p>
-			<p><a href='../bonding/index.html'>Bonding Period</p>
-			<p><a href='../week_1/index.html'>Week 1</p>
-			<p><a href='../week_2/index.html'>Week 2</p>
-			<p><a href='../week_3/index.html'>Week 3</p>
-			<p><a href='../week_4/index.html'>Week 4</p>
-			<p><a href='../week_5/index.html'>Week 5</p>
-			<p><a href='../week_6/index.html'>Week 6</p>
-			<p><a href='index.html'>Week 7</p>
-      <p><a href='../week_8/index.html'>Week 8</p>
-      <p><a href='../week_9_10_11/index.html'>Week 9/10/11</p>
+			<p><a href='../daily/index.html'>Daily and Weekly Update</a></p>
+			<p><a href='../bonding/index.html'>Bonding Period</a></p>
+			<p><a href='../week_1/index.html'>Week 1</a></p>
+			<p><a href='../week_2/index.html'>Week 2</a></p>
+			<p><a href='../week_3/index.html'>Week 3</a></p>
+			<p><a href='../week_4/index.html'>Week 4</a></p>
+			<p><a href='../week_5/index.html'>Week 5</a></p>
+			<p><a href='../week_6/index.html'>Week 6</a></p>
+			<p><a href='index.html'>Week 7</a></p>
+			<p><a href='../week_8/index.html'>Week 8</a></p>
+			<p><a href='../week_9_10_11/index.html'>Week 9/10/11</a></p>
+			<p><a href='../week_12/index.html'>Week 12</a></p>
 		</header>
 
 		<section>
 			<h2><a id="week_7" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 7</h2>
 
 			<h3>Transforming old B-rep model into my new format</h3>
-
 			<p>In my lastest implementation, I have integrated the plate mode(thickness value) information into B-rep model, but to this end, I need to set an extra flag to indicate whether the model has thickness value or not, so compared with the old B-rep representation, the lastest format is not so compatible with the old one, this is why I need a tool to transform between these two different formats.</p>
 
 			<p>Here is the source code of this simple <a href='brep-brep.cpp'>tool</a>.</p>
 
 			<h3>Short plan for further testing of plate mode raytracing</h3>
-
 			<p>
-			<li>Basic case: numerical validation of ray tracing for plate and sphere by using *gqa*(a built-in BRL-CAD tool) to calculate the volume.</li>
-
-			<li>Then, for NURBS surfaces with unmated edges(like 1/6th of a Cobb sphere example), the accuracy of plate mode volume estimates should get lower as we increase the thickness, cause we'll "miss" grazing hits.</li>
-
-			<li>Subsequently, we need to design more complex models like NURBS surface with trimmed edges, overlap and so on.</li>
+				<li>Basic case: numerical validation of ray tracing for plate and sphere by using *gqa*(a built-in BRL-CAD tool) to calculate the volume.</li>
+				<li>Then, for NURBS surfaces with unmated edges(like 1/6th of a Cobb sphere example), the accuracy of plate mode volume estimates should get lower as we increase the thickness, cause we'll "miss" grazing hits.</li>
+				<li>Subsequently, we need to design more complex models like NURBS surface with trimmed edges, overlap and so on.</li>
 			</p>
 
 			<h3><font color='red'>Issues when using *gqa*?</font></h3>
-
 			<p><b>PROBLEM 1</b>: I design a single plane(BoT with thickness) as input and try to compute its volume, but the program does not work and response, no matter what grid size I set, it always stuck in searching an optimal grid size to guarantee at least 1 samples per axis. What I think is that, actually, the single plane always does not have thickness in one dimension(for example, if the plane spans at x-y, and it do not have thickness along z axis), so if the ray comes from that direction, it will not hit the plane, never to say an optimal grid size, so the program can not proceed. This is just my inference, for more, I need to confirm with others or read the code.</p>
 
-      <p><del><b>PROBLEM 2</b>: In order to solve the single plane problem described above, this time, I rotate the plate in two ways(along x axis and randomly posed) as shown below, but the weird thing happens, the two volumes are totally <b>different</b>? How could it be, the same plane in different position and rotation but same thickness value, while the volume is different?</u></p>
+			<p><del><b>PROBLEM 2</b>: In order to solve the single plane problem described above, this time, I rotate the plate in two ways(along x axis and randomly posed) as shown below, but the weird thing happens, the two volumes are totally <b>different</b>? How could it be, the same plane in different position and rotation but same thickness value, while the volume is different?</u></p>
 
-      <p><b>NOTE</b>: I have figured out why it happens. Actually, it is not related to the BoT but the type of plate mode it specifies. In my examples, the type is 'plate', that is to say, when doing raytracing, we still need to consider the oblique angle when computing the hit distance and points. In constrast, there is a type called 'plate nocos', it just offset the hit point along the ray direction without any further computation. Let us get back to the problem. When rotating the models, the oblique angle should change accordingly, so the hit distances differ each other, then the volume calculated also varies.</p>
+			<p><b>NOTE</b>: I have figured out why it happens. Actually, it is not related to the BoT but the type of plate mode it specifies. In my examples, the type is 'plate', that is to say, when doing raytracing, we still need to consider the oblique angle when computing the hit distance and points. In constrast, there is a type called 'plate nocos', it just offset the hit point along the ray direction without any further computation. Let us get back to the problem. When rotating the models, the oblique angle should change accordingly, so the hit distances differ each other, then the volume calculated also varies.</p>
+			
 			<table border='1'>
 				<tr>
 					<td><a href='gqa_plate_2.png'><img src='gqa_plate_2.png' /></a></td>
@@ -73,7 +70,7 @@
 
 			<h3>Examples by using *gqa* to compute the volume?</h3>
 
-      <p><b><font color="red">PLEASE NOTE THAT</font></b> All the BoT models are generated in 'plate' type but not 'plate-nocos', I have already updated all the lastest results in next week's report.</p>
+			<p><b><font color="red">PLEASE NOTE THAT</font></b> All the BoT models are generated in 'plate' type but not 'plate-nocos', I have already updated all the lastest results in next week's report.</p>
 
 			I will separate this part into several sections, because *gqa* does not work correctly on single plane as illustrated above, so I will not test it but start with arc surface(1/2 of a sphere).
 
@@ -127,7 +124,6 @@
 					<td><a href='2_hs_brep_volume_2.png'><img src='2_hs_brep_volume_2.png' /></a></td>
 				</tr>
 			</table>
-
 		</section>
 	</div>
 </body>
