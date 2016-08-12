@@ -38,12 +38,23 @@
 		<section>
 			<h2><a id="week_12" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 12</h2>
 			
-			<h3>Examples of B-rep model using *nirt*</h3>
-			<p>Here is the result of *raytrace* and *nirt* of brep_cobb(center=(0.0, 0.0, 0.0), radius=1.0, thickness=0.5).</p>
-
-			<p><a href='brep_cobb_t_nirt.png'><img width='300' src='brep_cobb_t_nirt.png' /></a></p>
+			<h3>Examples of B-rep model(brep_cobb) using *nirt*</h3>
+			<p>Here is an example of *raytrace* and *nirt* of 'brep_cobb'. Because the 'brep_cobb' is a concatenation of six pieces of surface, so it is not a solid model, I can not generate the 'nirt 1' result like the BoT example below, but I have the following *nirt* result for both surface mode(two hit points with LOS equaling to 0 and a purple line indicating a gap between them) and plate mode(two hit points with LOS equaling to 0.5 and blue/yellow line indicating thickness of the surface and a purple line meaning a gap).</p>
 			
-			<h3>Using *nirt* to shoot single ray</h3>
+			<p>By the way, the configuration of the B-rep is: center=(0.0, 0.0, 0.0), radius=1.0, thickness=0.5.</p>
+
+			<table border='1'>
+				<tr>
+					<td>Surface Mode</td>
+					<td>Plate Mode</td>
+				</tr>
+				<tr>
+					<td><a href='brep_cobb_nirt.png'><img src='brep_cobb_nirt.png' /></a></td>
+					<td><a href='brep_cobb_t_nirt.png'><img src='brep_cobb_t_nirt.png' /></a></td>
+				</tr>
+			</table>
+
+			<h3>Using *nirt* to shoot single ray on BoT</h3>
 			<p>Here is an example on how to generate a BoT hemisphere and using *nirt* to do ray tracing in different settings. The table below shows the visualized result of ray tracing. For more details, please refer to the *nirt* manual(<a href='http://brlcad.org/w/images/f/fe/Interactive_Raytracing_-_The_nirt_Command.pdf'>Download</a>).</p>
 			<p><img src='hemi_brlcad.png' /></p>
 			
@@ -61,7 +72,6 @@
 					<td width='400'><a href='nirt_3_closeup.png'><img src='nirt_3_closeup.png' /></a></td>
 				</tr>
 			</table>
-			
     </section>
 	</div>
 </body>
