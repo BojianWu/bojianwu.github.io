@@ -38,6 +38,43 @@
 		<section>
 			<h2><a id="week_12" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 12</h2>
 			
+			<h3>B-rep sphere and hemisphere(solid, not in plate mode)</h3>
+			<p>There is a problem occurred when using sphere and hemisphere as examples. Because they are all <a href='https://en.wikipedia.org/wiki/Surface_of_revolution'>revolution surfaces</a>, so they contain <b>singular vertices</b>(orange points) at the end of the reference curve(red curve) as depicted in the follows.</p>
+			
+			<p>Let us take the sphere(left) as example, if the ray shoots from the direction as depicted in yellow, it will give a miss. After tracking the code step by step, I find that it can not compute the normal at this point correctly(the calculated result show normal=(0.0, 0.0, 0.0)), so on the manifold surface, this point should be considered as a singular point. Same as the hemisphere(right), but more than sphere, it will give a miss when shooting the ray from the side.</p>
+			
+			<p>But the problem here is how to compute the normal? In the implementation of BRL-CAD, it uses openNURBS built-in functions to compute the normal, but it fails on such singular points. What I think is to use its neighboring information do deduce the missing data.</p>
+			
+			<table border='1'>
+			<tr>
+				<td width=400><p><img src='sphere_solid_nirt_marker.png' /></p></td>
+				<td width=400><p><img src='hemi_solid_nirt_marker.png' /></p></td>
+			</tr>
+			</table>
+			
+			<p>The result is as follows. If I translate the mode a little bit and avoid the singular points, the ray will hit the model.</p>
+			
+			<table border='1'>
+			<tr>
+				<td>Solid Model</td>
+				<td>Top</td>
+				<td>Front</td>
+				<td>Left</td>
+			</tr>
+			<tr>
+				<td>Hemisphere</td>
+				<td><a href='hemi_top_nirt.png'><img src='hemi_top_nirt.png' /></a></td>
+				<td><a href='hemi_front_nirt.png'><img src='hemi_front_nirt.png' /></a></td>
+				<td><a href='hemi_left_nirt.png'><img src='hemi_left_nirt.png' /></a></td>
+			</tr>
+			<tr>
+				<td>Sphere</td>
+				<td><a href='sphere_top_nirt.png'><img src='sphere_top_nirt.png' /></a></td>
+				<td><a href='sphere_front_nirt.png'><img src='sphere_front_nirt.png' /></a></td>
+				<td><a href='sphere_left_nirt.png'><img src='sphere_left_nirt.png' /></a></td>
+			</tr>
+			</table>
+			
 			<h3>Examples of B-rep model(brep_cobb) using *nirt*</h3>
 			<p>Here is an example of *raytrace* and *nirt* of 'brep_cobb'. Because the 'brep_cobb' is a concatenation of six pieces of surface, so it is not a solid model, I can not generate the 'nirt 1' result like the BoT example below, but I have the following *nirt* result for both surface mode(two hit points with LOS equaling to 0 and a purple line indicating a gap between them) and plate mode(two hit points with LOS equaling to 0.5 and blue/yellow line indicating thickness of the surface and a purple line meaning a gap).</p>
 			
