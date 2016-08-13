@@ -37,13 +37,31 @@
 
 		<section>
 			<h2><a id="week_12" class="anchor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Week 12</h2>
+
+			<h3>Inconsistent shooting pairs in sphere and hemisphere</h3>
+			<p>Now the normal can be deduced at singular points correctly. But another problem arises. Actually if the ray shoots from a singular point to another singular point, like shooting from top to down in sphere or from side to side in hemisphere, it will still report a miss illustrated as follows.</p>
 			
-			<h3>B-rep sphere and hemisphere(solid, not in plate mode)</h3>
+			<p>I also follow the code and find an interesting thing. The program can compute all the hit points at the very beginning, but some hits are pruned by some rules later and cause the inconsistency hitting pairs, so it will report a miss. Now I am working on this...</p>
+			
+			<table border='1'>
+				<tr>
+					<td width=400><a href='sphere_solid_nirt_miss.png'><img src='sphere_solid_nirt_miss.png' /></a></td>
+					<td width=400><a href='hemi_solid_nirt_miss.png'><img src='hemi_solid_nirt_miss.png' /></a></td>
+				</tr>
+				<tr>
+					<td>The normal at two singular points(marked with orange) are correct now, but if the ray shoots from top to down, it will miss.</td>
+					<td>The normal several singular points are correct now. In one case, if the ray shoots from top to down, it will report a successful hit cause the out hit is not a singular point, but the other case, it the ray shoots from side to side as depicted above, it will still give a miss.</td>
+				</tr>			
+			</table>
+			
+			<h3>B-rep sphere and hemisphere(solid, not in plate mode)</h3>			
 			<p>There is a problem occurred when using sphere and hemisphere as examples. Because they are all <a href='https://en.wikipedia.org/wiki/Surface_of_revolution'>revolution surfaces</a>, so they contain <b>singular vertices</b>(orange points) at the end of the reference curve(red curve) as depicted in the follows.</p>
 			
 			<p>Let us take the sphere(left) as example, if the ray shoots from the direction as depicted in yellow, it will give a miss. After tracking the code step by step, I find that it can not compute the normal at this point correctly(the calculated result show normal=(0.0, 0.0, 0.0)), so on the manifold surface, this point should be considered as a singular point. Same as the hemisphere(right), but more than sphere, it will give a miss when shooting the ray from the side.</p>
 			
-			<p>But the problem here is how to compute the normal? In the implementation of BRL-CAD, it uses openNURBS built-in functions to compute the normal, but it fails on such singular points. What I think is to use its neighboring information do deduce the missing data.</p>
+			<p>But the problem here is how to compute the normal? In the implementation of BRL-CAD, it uses openNURBS built-in functions to compute the normal, but it fails on such singular points. <del>What I think is to use its neighboring information do deduce the missing data.</del></p>
+			
+			<p><font color='red'><b>PROBLEM SOLVED</b></font>: actually in current implementation, for all surface, it uses ON_Surface::Ev1Der() to compute normal and first derivatives at a point on the surface, but the drawback is that it will fail the computation at simgular points, I use another function called ON_Surface::EvNormal(), it will check the singularity and compute Jacobian to evaluate the normal when necessary.(<a href='https://discourse.mcneel.com/t/on-revsurface-ev1der-get-error-at-end-points-of-reference-curve/35855'>link</a>)</p>
 			
 			<table border='1'>
 			<tr>
