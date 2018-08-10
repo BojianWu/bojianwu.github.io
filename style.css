@@ -1,0 +1,98 @@
+body
+{
+	background-color: #eeeeee;
+	font-family: 'Lato', Arial, sans-serif;
+	line-height: 1.2;
+	margin: 0px 0px;
+}
+
+div.inner
+{
+	width: 850px;
+	background-color: #ffffff;
+	margin: 0px auto;
+	position: relative; 
+}
+
+div.name
+{
+	margin-top: 15px;
+	margin-bottom: 8px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 2.5em;
+	padding-left: 10px;
+	text-align:center
+}
+
+div.bio
+{
+	margin-bottom: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 1.0em;
+	padding-left: 10px;
+	text-align:center
+}
+
+div.section
+{
+	width: 780px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 1.5em;
+	padding-left: 10px;
+	border-radius: 10px;
+	color: #3873b2 /* r:56, g:115, b:178 */
+}
+
+div.section-body
+{
+	width: 770px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: justify;
+}
+
+.title
+{
+	font-weight: bolder;
+}
+
+table.pubtable
+{
+	width: 770px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.pubtable a,.pubtable a:link,.pubtable a:visited
+{
+	color: #222222;
+	text-decoration: underlined;
+}
+
+.pubtable a:hover,.pubtable a:active
+{
+	color: #f60000;
+	text-decoration: underlined;
+}
+
+.pub-spacer
+{
+	height: 8px;
+}
+
+.thumbnail
+{
+	border: 1px solid #7F7F7F;
+	box-shadow: 0px 0px 6px 1px ThreeDShadow;
+	margin: 0px 7px 2px 0px;
+	width: 200px
+}
