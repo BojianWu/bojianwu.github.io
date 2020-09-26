@@ -8,10 +8,10 @@ body
 
 div.inner
 {
-	width: 850px;
+	width: 1000px;
 	background-color: #ffffff;
-	margin: 0px auto;
-	position: relative; 
+	margin: 15px auto;
+	position: relative;
 }
 
 div.name
@@ -20,7 +20,7 @@ div.name
 	margin-bottom: 8px;
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 2.5em;
+	font-size: 2.8em;
 	padding-left: 10px;
 	text-align:center
 }
@@ -30,21 +30,21 @@ div.bio
 	margin-bottom: 15px;
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 1.0em;
+	font-size: 1.2em;
 	padding-left: 10px;
 	text-align:center
 }
 
 div.section
 {
-	width: 780px;
+	width: 900px;
 	margin-top: 15px;
 	margin-bottom: 10px;
 	margin-left: auto;
 	margin-right: auto;
 	font-variant: small-caps;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.8em;
 	padding-left: 10px;
 	border-radius: 10px;
 	color: #3873b2 /* r:56, g:115, b:178 */
@@ -52,12 +52,13 @@ div.section
 
 div.section-body
 {
-	width: 770px;
+	width: 890px;
 	margin-left: auto;
 	margin-right: auto;
 	padding-left: 10px;
 	padding-right: 10px;
 	text-align: justify;
+    font-size: 1.1em;
 }
 
 .title
@@ -67,7 +68,7 @@ div.section-body
 
 table.pubtable
 {
-	width: 770px;
+	width: 890px;
 	margin-left:auto;
 	margin-right:auto;
 }
